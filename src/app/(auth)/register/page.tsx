@@ -126,7 +126,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   {...register("username")}
-                  placeholder="JohnDoe"
+                  placeholder="John Doe"
                   className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700"
                   required
                 />
@@ -144,7 +144,7 @@ export default function RegisterPage() {
                 <input
                   type="email"
                   {...register("email")}
-                  placeholder="john@example.com"
+                  placeholder="name@example.com"
                   className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700"
                   required
                 />

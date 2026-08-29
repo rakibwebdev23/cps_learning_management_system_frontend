@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useRouter } from "next/navigation"
-import { ArrowLeft, ArrowRight, Check } from "lucide-react"
+import { ArrowLeft, ArrowRight, Check, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -14,6 +14,8 @@ import { Separator } from "@/components/ui/separator"
 import PageHeader from "@/components/common/PageHeader"
 import { COURSE_CATEGORIES, COURSE_LEVELS } from "@/lib/constants"
 import { cn } from "@/lib/utils"
+import { useCreateCourseMutation } from "@/redux/api/featuresApi/course/course.api"
+import { useAppSelector } from "@/redux/hooks"
 
 const steps = ["Course Info", "Lessons", "Quiz"]
 
@@ -30,13 +32,32 @@ type FormData = z.infer<typeof schema>
 export default function CreateCoursePage() {
   const [step, setStep] = useState(0)
   const [lessons, setLessons] = useState([{ title: "", durationMinutes: 10, type: "video" }])
+  const [errorMsg, setErrorMsg] = useState("")
   const router = useRouter()
+
+  const currentUser = useAppSelector((state) => state.auth.user)
+  const [createCourse, { isLoading: isCreating }] = useCreateCourseMutation()
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>({ resolver: zodResolver(schema) as any })
 
-  const onSubmit = (data: FormData) => {
-    console.log("Create course:", { ...data, lessons })
-    router.push("/dashboard/instructor/courses")
+  const onSubmit = async (data: FormData) => {
+    setErrorMsg("")
+    try {
+      await createCourse({
+        data: {
+          title: data.title,
+          description: data.description || data.shortDescription,
+          price: data.price,
+          instructor: currentUser?.id ? String(currentUser.id) : undefined,
+        },
+      }).unwrap()
+
+      router.push("/dashboard/instructor/courses")
+    } catch (err: any) {
+      console.error("Create course error:", err)
+      const msg = err?.data?.error?.message || err?.message || "Failed to create course."
+      setErrorMsg(msg)
+    }
   }
 
   const addLesson = () => setLessons((prev) => [...prev, { title: "", durationMinutes: 10, type: "video" }])
@@ -51,6 +72,12 @@ export default function CreateCoursePage() {
         title="Create New Course"
         breadcrumbs={[{ label: "Courses", href: "/dashboard/instructor/courses" }, { label: "Create" }]}
       />
+
+      {errorMsg && (
+        <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600">
+          {errorMsg}
+        </div>
+      )}
 
       {/* step indicator */}
       <div className="flex items-center gap-0 mb-8">
@@ -72,7 +99,7 @@ export default function CreateCoursePage() {
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* step 1 */}
         {step === 0 && (
-          <div className="rounded-xl border bg-white p-6 space-y-4 w-full shadow-sm">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 space-y-4 w-full shadow-sm">
             <h2 className="font-semibold text-slate-900">Course Information</h2>
             <Separator />
             <div className="space-y-1.5">
@@ -117,10 +144,10 @@ export default function CreateCoursePage() {
 
         {/* step 2 */}
         {step === 1 && (
-          <div className="rounded-xl border bg-white p-6 w-full shadow-sm">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 w-full shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-semibold text-slate-900">Lessons</h2>
-              <Button type="button" size="sm" onClick={addLesson} className="gap-1 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold">+ Add Lesson</Button>
+              <Button type="button" size="sm" onClick={addLesson} className="gap-1 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold cursor-pointer">+ Add Lesson</Button>
             </div>
             <Separator className="mb-4" />
             <div className="space-y-3">
@@ -149,7 +176,7 @@ export default function CreateCoursePage() {
 
         {/* step 3 */}
         {step === 2 && (
-          <div className="rounded-xl border bg-white p-6 w-full shadow-sm">
+          <div className="rounded-xl border border-slate-200 bg-white p-6 w-full shadow-sm">
             <h2 className="font-semibold text-slate-900 mb-4">Quiz Setup (Optional)</h2>
             <Separator className="mb-4" />
             <p className="text-sm text-slate-500 mb-4">You can add a quiz to assess your students. This can be configured later.</p>
@@ -176,16 +203,25 @@ export default function CreateCoursePage() {
 
         {/* navigation */}
         <div className="flex items-center justify-between mt-6">
-          <Button type="button" variant="outline" disabled={step === 0} onClick={() => setStep((s) => s - 1)} className="gap-2">
+          <Button type="button" variant="outline" disabled={step === 0} onClick={() => setStep((s) => s - 1)} className="gap-2 cursor-pointer">
             <ArrowLeft className="h-4 w-4" />Previous
           </Button>
           {step < steps.length - 1 ? (
-            <Button type="button" onClick={() => setStep((s) => s + 1)} className="gap-2 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold">
+            <Button type="button" onClick={() => setStep((s) => s + 1)} className="gap-2 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold cursor-pointer">
               Next<ArrowRight className="h-4 w-4 text-white" />
             </Button>
           ) : (
-            <Button type="submit" className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold">
-              <Check className="h-4 w-4 text-white" />Create Course
+            <Button type="submit" disabled={isCreating} className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold cursor-pointer">
+              {isCreating ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  Creating...
+                </>
+              ) : (
+                <>
+                  <Check className="h-4 w-4 text-white" />Create Course
+                </>
+              )}
             </Button>
           )}
         </div>

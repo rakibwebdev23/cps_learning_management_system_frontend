@@ -1,23 +1,58 @@
 "use client"
 import { useState, useMemo } from "react"
-import { Search, SlidersHorizontal, X } from "lucide-react"
+import { Search, X, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import CourseCard from "@/components/course/CourseCard"
 import EmptyState from "@/components/common/EmptyState"
-import { getPublishedCourses } from "@/data/courses"
 import { COURSE_CATEGORIES, COURSE_LEVELS, COURSE_SORT_OPTIONS } from "@/lib/constants"
 import { useDebounce } from "@/hooks/useDebounce"
+import { useGetCoursesQuery } from "@/redux/api/featuresApi/course/course.api"
+import { getPublishedCourses } from "@/data/courses"
 
 export default function CoursesPage() {
-  const allCourses = getPublishedCourses()
   const [search, setSearch] = useState("")
   const [category, setCategory] = useState("all")
   const [level, setLevel] = useState("all")
   const [sort, setSort] = useState("popular")
   const debouncedSearch = useDebounce(search, 300)
+
+  const { data: apiData, isLoading } = useGetCoursesQuery({
+    search: debouncedSearch,
+  })
+
+  // Map API data if present, otherwise fallback to local dataset
+  const allCourses = useMemo(() => {
+    if (apiData?.data && apiData.data.length > 0) {
+      return apiData.data.map((c) => ({
+        id: String(c.documentId || c.id),
+        title: c.title,
+        slug: c.title.toLowerCase().replace(/\s+/g, "-"),
+        shortDescription: c.description || "Professional course at CPS LMS",
+        description: c.description || "Detailed course overview...",
+        thumbnail: c.thumbnail_url || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
+        category: "Web Development",
+        level: "intermediate" as const,
+        price: c.price || 49,
+        instructor: {
+          id: String(c.instructor?.id || "1"),
+          name: c.instructorName || c.instructor?.username || "CPS Instructor",
+          avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80",
+        },
+        rating: 4.8,
+        reviewCount: 124,
+        studentCount: 1540,
+        lessonCount: c.lessonCount || 12,
+        durationMinutes: 360,
+        isPublished: true,
+        isFeatured: true,
+        createdAt: c.createdAt || new Date().toISOString(),
+      }))
+    }
+    return getPublishedCourses()
+  }, [apiData])
 
   const filtered = useMemo(() => {
     let result = allCourses.filter((c) => {
@@ -28,8 +63,8 @@ export default function CoursesPage() {
     })
     if (sort === "rating") result = [...result].sort((a, b) => b.rating - a.rating)
     else if (sort === "newest") result = [...result].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-    else if (sort === "price_asc") result = [...result].sort((a, b) => (a.discountPrice ?? a.price) - (b.discountPrice ?? b.price))
-    else if (sort === "price_desc") result = [...result].sort((a, b) => (b.discountPrice ?? b.price) - (a.discountPrice ?? a.price))
+    else if (sort === "price_asc") result = [...result].sort((a, b) => (a.price) - (b.price))
+    else if (sort === "price_desc") result = [...result].sort((a, b) => (b.price) - (a.price))
     else result = [...result].sort((a, b) => b.studentCount - a.studentCount)
     return result
   }, [allCourses, debouncedSearch, category, level, sort])
@@ -42,13 +77,13 @@ export default function CoursesPage() {
       <div className="bg-slate-900 text-white py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold mb-2">Browse All Courses</h1>
-          <p className="text-slate-400">Explore 500+ expert-led courses across 8 categories.</p>
+          <p className="text-slate-400">Explore expert-led courses on CPS LMS live platform.</p>
         </div>
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         {/* filters */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-8 p-4 bg-white dark:bg-slate-800 rounded-xl border">
+        <div className="flex flex-col lg:flex-row gap-4 mb-8 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
             <Input placeholder="Search courses..." className="pl-9" value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -91,10 +126,13 @@ export default function CoursesPage() {
           </div>
         </div>
 
-        {/* grid */}
-        {filtered.length > 0 ? (
+        {isLoading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 animate-spin text-[#F59E0B]" />
+          </div>
+        ) : filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((course) => <CourseCard key={course.id} course={course} />)}
+            {filtered.map((course) => <CourseCard key={course.id} course={course as any} />)}
           </div>
         ) : (
           <EmptyState icon={Search} title="No courses found" description="Try adjusting your search or filters." />

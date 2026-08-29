@@ -4,13 +4,21 @@ import { BlogPostListResponse, BlogPostResponse, CreateBlogPostPayload } from ".
 export const blogApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getBlogPosts: build.query<BlogPostListResponse, void>({
-      query: () => "/blog-posts?populate=*",
+      query: () => ({
+        url: "/blog-posts",
+        method: "GET",
+        params: { populate: "*" },
+      }),
       providesTags: ["Blog"],
     }),
 
-    getBlogPostById: build.query<BlogPostResponse, string | number>({
-      query: (id) => `/blog-posts/${id}?populate=*`,
-      providesTags: (_res, _err, id) => [{ type: "Blog", id }],
+    getBlogPostById: build.query<BlogPostResponse, { id: string | number }>({
+      query: ({ id }) => ({
+        url: `/blog-posts/${id}`,
+        method: "GET",
+        params: { populate: "*" },
+      }),
+      providesTags: (_res, _err, { id }) => [{ type: "Blog", id }],
     }),
 
     createBlogPost: build.mutation<BlogPostResponse, CreateBlogPostPayload>({
@@ -31,8 +39,8 @@ export const blogApi = baseApi.injectEndpoints({
       invalidatesTags: (_res, _err, { id }) => ["Blog", { type: "Blog", id }],
     }),
 
-    deleteBlogPost: build.mutation<{ id: number }, string | number>({
-      query: (id) => ({
+    deleteBlogPost: build.mutation<{ id: number }, { id: string | number }>({
+      query: ({ id }) => ({
         url: `/blog-posts/${id}`,
         method: "DELETE",
       }),

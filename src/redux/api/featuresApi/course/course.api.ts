@@ -1,23 +1,35 @@
 import { baseApi } from "@/redux/api/baseApi/baseApi"
 import { CourseListResponse, CourseResponse, CreateCoursePayload } from "./course.type"
 
+export interface CourseQueryParams {
+  page?: number
+  pageSize?: number
+  search?: string
+}
+
 export const courseApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getCourses: build.query<CourseListResponse, { page?: number; pageSize?: number; search?: string } | void>({
-      query: (params) => {
-        const queryParams = new URLSearchParams()
-        if (params?.page) queryParams.append("pagination[page]", params.page.toString())
-        if (params?.pageSize) queryParams.append("pagination[pageSize]", params.pageSize.toString())
-        if (params?.search) queryParams.append("filters[title][$contains]", params.search)
-        queryParams.append("populate", "*")
-        return `/courses?${queryParams.toString()}`
-      },
+    getCourses: build.query<CourseListResponse, CourseQueryParams | void>({
+      query: (params) => ({
+        url: "/courses",
+        method: "GET",
+        params: {
+          populate: "*",
+          ...(params?.page && { "pagination[page]": params.page }),
+          ...(params?.pageSize && { "pagination[pageSize]": params.pageSize }),
+          ...(params?.search && { "filters[title][$contains]": params.search }),
+        },
+      }),
       providesTags: ["Course"],
     }),
 
-    getCourseById: build.query<CourseResponse, string | number>({
-      query: (id) => `/courses/${id}?populate=*`,
-      providesTags: (_result, _err, id) => [{ type: "Course", id }],
+    getCourseById: build.query<CourseResponse, { id: string | number }>({
+      query: ({ id }) => ({
+        url: `/courses/${id}`,
+        method: "GET",
+        params: { populate: "*" },
+      }),
+      providesTags: (_result, _err, { id }) => [{ type: "Course", id }],
     }),
 
     createCourse: build.mutation<CourseResponse, CreateCoursePayload>({
@@ -38,8 +50,8 @@ export const courseApi = baseApi.injectEndpoints({
       invalidatesTags: (_result, _err, { id }) => ["Course", { type: "Course", id }],
     }),
 
-    deleteCourse: build.mutation<{ id: number }, string | number>({
-      query: (id) => ({
+    deleteCourse: build.mutation<{ id: number }, { id: string | number }>({
+      query: ({ id }) => ({
         url: `/courses/${id}`,
         method: "DELETE",
       }),

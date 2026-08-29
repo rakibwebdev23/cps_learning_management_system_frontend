@@ -1,21 +1,31 @@
 import { baseApi } from "@/redux/api/baseApi/baseApi"
 import { QuizResultListResponse, QuizResultResponse, SubmitQuizPayload } from "./result.type"
 
+export interface ResultQueryParams {
+  studentId?: string | number
+}
+
 export const resultApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getQuizResults: build.query<QuizResultListResponse, { studentId?: string | number } | void>({
-      query: (params) => {
-        const queryParams = new URLSearchParams()
-        if (params?.studentId) queryParams.append("filters[student][id][$eq]", params.studentId.toString())
-        queryParams.append("populate", "*")
-        return `/quiz-results?${queryParams.toString()}`
-      },
+    getQuizResults: build.query<QuizResultListResponse, ResultQueryParams | void>({
+      query: (params) => ({
+        url: "/quiz-results",
+        method: "GET",
+        params: {
+          populate: "*",
+          ...(params?.studentId && { "filters[student][id][$eq]": params.studentId }),
+        },
+      }),
       providesTags: ["Result"],
     }),
 
-    getQuizResultById: build.query<QuizResultResponse, string | number>({
-      query: (id) => `/quiz-results/${id}?populate=*`,
-      providesTags: (_res, _err, id) => [{ type: "Result", id }],
+    getQuizResultById: build.query<QuizResultResponse, { id: string | number }>({
+      query: ({ id }) => ({
+        url: `/quiz-results/${id}`,
+        method: "GET",
+        params: { populate: "*" },
+      }),
+      providesTags: (_res, _err, { id }) => [{ type: "Result", id }],
     }),
 
     submitQuizResult: build.mutation<QuizResultResponse, SubmitQuizPayload>({

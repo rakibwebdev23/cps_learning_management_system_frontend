@@ -1,15 +1,21 @@
 import { baseApi } from "@/redux/api/baseApi/baseApi"
 import { EnrollmentListResponse, EnrollmentResponse, CreateEnrollmentPayload } from "./enrollment.type"
 
+export interface EnrollmentQueryParams {
+  studentId?: string | number
+}
+
 export const enrollmentApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getEnrollments: build.query<EnrollmentListResponse, { studentId?: string | number } | void>({
-      query: (params) => {
-        const queryParams = new URLSearchParams()
-        if (params?.studentId) queryParams.append("filters[student][id][$eq]", params.studentId.toString())
-        queryParams.append("populate", "*")
-        return `/enrollments?${queryParams.toString()}`
-      },
+    getEnrollments: build.query<EnrollmentListResponse, EnrollmentQueryParams | void>({
+      query: (params) => ({
+        url: "/enrollments",
+        method: "GET",
+        params: {
+          populate: "*",
+          ...(params?.studentId && { "filters[student][id][$eq]": params.studentId }),
+        },
+      }),
       providesTags: ["Enrollment"],
     }),
 

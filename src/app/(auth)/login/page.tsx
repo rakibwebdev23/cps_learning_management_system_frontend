@@ -37,8 +37,8 @@ export default function LoginPage() {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "rh.rakibhasan365@gmail.com",
-      password: "@Cps@@lms26@",
+      email: "",
+      password: "",
     },
   })
 
@@ -120,7 +120,7 @@ export default function LoginPage() {
                 <input
                   type="email"
                   {...register("email")}
-                  placeholder="rh.rakibhasan365@gmail.com"
+                  placeholder="name@example.com"
                   className="w-full pl-12 pr-12 py-3.5 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700"
                   required
                 />

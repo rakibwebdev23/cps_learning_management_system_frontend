@@ -20,7 +20,10 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["Auth", "User"],
     }),
     getMe: build.query<User, void>({
-      query: () => "/users/me",
+      query: () => ({
+        url: "/users/me",
+        method: "GET",
+      }),
       providesTags: ["User"],
     }),
     updateProfile: build.mutation<User, Partial<User>>({
