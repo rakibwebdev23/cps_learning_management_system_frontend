@@ -10,6 +10,9 @@ import { z } from "zod"
 import { Mail, Lock, User, Shield, Eye, EyeOff, CheckCircle2, Loader2, GraduationCap } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { SITE_NAME } from "@/lib/constants"
+import { useRegisterMutation } from "@/redux/api/featuresApi/auth/authApi"
+import { useAppDispatch } from "@/redux/hooks"
+import { setCredentials } from "@/redux/api/featuresApi/auth/authSlice"
 
 const schema = z.object({
   username: z.string().min(2, "Username is required"),
@@ -22,6 +25,9 @@ type FormData = z.infer<typeof schema>
 
 export default function RegisterPage() {
   const router = useRouter()
+  const dispatch = useAppDispatch()
+  const [registerUser, { isLoading: isRegisterLoading }] = useRegisterMutation()
+
   const [showPassword, setShowPassword] = useState(false)
   const [errorMsg, setErrorMsg] = useState("")
 
@@ -30,36 +36,53 @@ export default function RegisterPage() {
     handleSubmit,
     control,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      username: "Instructor5",
-      email: "instructor5@example.com",
-      password: "instructor123",
-      user_role: "instructor",
+      username: "",
+      email: "",
+      password: "",
+      user_role: "student",
     },
   })
 
   const emailValue = watch("email") || ""
   const isEmailValid = emailValue.includes("@") && emailValue.includes(".")
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     setErrorMsg("")
-    switch (data.user_role) {
-      case "instructor":
-        router.push("/dashboard/instructor")
-        break
-      case "content_manager":
-        router.push("/dashboard/content-manager")
-        break
-      case "admin":
-        router.push("/dashboard/admin")
-        break
-      case "student":
-      default:
-        router.push("/dashboard/student")
-        break
+    try {
+      const res = await registerUser({
+        username: data.username,
+        email: data.email,
+        password: data.password,
+        user_role: data.user_role,
+      }).unwrap()
+
+      if (res.jwt && res.user) {
+        dispatch(
+          setCredentials({
+            user: res.user,
+            accessToken: res.jwt,
+            jwt: res.jwt,
+          })
+        )
+
+        const role = res.user.user_role
+        if (role === "admin") {
+          router.push("/dashboard/admin")
+        } else if (role === "instructor") {
+          router.push("/dashboard/instructor")
+        } else if (role === "content_manager") {
+          router.push("/dashboard/content-manager")
+        } else {
+          router.push("/dashboard/student")
+        }
+      }
+    } catch (err: any) {
+      const msg = err?.data?.error?.message || err?.message || "Registration failed. Please try again."
+      setErrorMsg(msg)
     }
   }
 
@@ -103,7 +126,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   {...register("username")}
-                  placeholder="Instructor5"
+                  placeholder="JohnDoe"
                   className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700"
                   required
                 />
@@ -121,7 +144,7 @@ export default function RegisterPage() {
                 <input
                   type="email"
                   {...register("email")}
-                  placeholder="instructor5@example.com"
+                  placeholder="john@example.com"
                   className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700"
                   required
                 />
@@ -177,8 +200,8 @@ export default function RegisterPage() {
                         <SelectValue placeholder="Select role" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="instructor" className="cursor-pointer">Instructor</SelectItem>
                         <SelectItem value="student" className="cursor-pointer">Student</SelectItem>
+                        <SelectItem value="instructor" className="cursor-pointer">Instructor</SelectItem>
                         <SelectItem value="content_manager" className="cursor-pointer">Content Manager</SelectItem>
                         <SelectItem value="admin" className="cursor-pointer">Admin</SelectItem>
                       </SelectContent>
@@ -193,10 +216,10 @@ export default function RegisterPage() {
             <div className="flex justify-center pt-2">
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isRegisterLoading}
                 className="w-full py-3.5 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold rounded-full text-sm shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
               >
-                {isSubmitting ? (
+                {isRegisterLoading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin text-white" />
                     Creating account...

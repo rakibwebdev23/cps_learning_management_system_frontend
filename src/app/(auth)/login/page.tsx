@@ -9,6 +9,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Mail, Lock, Eye, EyeOff, CheckCircle2, Loader2, GraduationCap } from "lucide-react"
 import { SITE_NAME } from "@/lib/constants"
+import { useLoginMutation } from "@/redux/api/featuresApi/auth/authApi"
+import { useAppDispatch } from "@/redux/hooks"
+import { setCredentials } from "@/redux/api/featuresApi/auth/authSlice"
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -19,6 +22,9 @@ type FormData = z.infer<typeof schema>
 
 export default function LoginPage() {
   const router = useRouter()
+  const dispatch = useAppDispatch()
+  const [login, { isLoading: isLoginLoading }] = useLoginMutation()
+
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
   const [errorMsg, setErrorMsg] = useState("")
@@ -27,30 +33,50 @@ export default function LoginPage() {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "instructor5@example.com",
-      password: "instructor123",
+      email: "rh.rakibhasan365@gmail.com",
+      password: "@Cps@@lms26@",
     },
   })
 
   const emailValue = watch("email") || ""
   const isEmailValid = emailValue.includes("@") && emailValue.includes(".")
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     setErrorMsg("")
-    const emailLower = data.email.toLowerCase()
+    try {
+      const res = await login({
+        identifier: data.email,
+        email: data.email,
+        password: data.password,
+      }).unwrap()
 
-    if (emailLower.includes("instructor")) {
-      router.push("/dashboard/instructor")
-    } else if (emailLower.includes("admin")) {
-      router.push("/dashboard/admin")
-    } else if (emailLower.includes("content")) {
-      router.push("/dashboard/content-manager")
-    } else {
-      router.push("/dashboard/student")
+      if (res.jwt && res.user) {
+        dispatch(
+          setCredentials({
+            user: res.user,
+            accessToken: res.jwt,
+            jwt: res.jwt,
+          })
+        )
+
+        const role = res.user.user_role
+        if (role === "admin") {
+          router.push("/dashboard/admin")
+        } else if (role === "instructor") {
+          router.push("/dashboard/instructor")
+        } else if (role === "content_manager") {
+          router.push("/dashboard/content-manager")
+        } else {
+          router.push("/dashboard/student")
+        }
+      }
+    } catch (err: any) {
+      const msg = err?.data?.error?.message || err?.message || "Failed to log in. Please check credentials."
+      setErrorMsg(msg)
     }
   }
 
@@ -94,7 +120,7 @@ export default function LoginPage() {
                 <input
                   type="email"
                   {...register("email")}
-                  placeholder="instructor5@example.com"
+                  placeholder="rh.rakibhasan365@gmail.com"
                   className="w-full pl-12 pr-12 py-3.5 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700"
                   required
                 />
@@ -157,10 +183,10 @@ export default function LoginPage() {
             <div className="flex justify-center pt-2">
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isLoginLoading}
                 className="w-full py-3.5 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold rounded-full text-sm shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
               >
-                {isSubmitting ? (
+                {isLoginLoading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin text-white" />
                     Signing in...
