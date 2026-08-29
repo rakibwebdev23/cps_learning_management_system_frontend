@@ -5,19 +5,19 @@ import { courseCompletionData } from "@/data/dashboard"
 
 export default function CompletionChart() {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-md shadow-slate-200/50 hover:shadow-lg transition-shadow">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-base font-bold text-slate-900">Course Progress Breakdown</h3>
-        <span className="text-xs font-semibold text-slate-500">Total: 8 Courses</span>
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <h3 className="text-sm font-bold text-slate-900">Course Progress Breakdown</h3>
+        <span className="text-xs font-semibold text-slate-500">8 Enrolled</span>
       </div>
-      <ResponsiveContainer width="100%" height={260}>
+      <ResponsiveContainer width="100%" height={240}>
         <PieChart>
           <Pie
             data={courseCompletionData}
             cx="50%"
             cy="50%"
-            innerRadius={65}
-            outerRadius={95}
+            innerRadius={60}
+            outerRadius={85}
             paddingAngle={4}
             dataKey="value"
           >
@@ -33,7 +33,7 @@ export default function CompletionChart() {
               fontSize: "12px",
             }}
           />
-          <Legend iconType="circle" iconSize={10} wrapperStyle={{ fontSize: "12px", paddingTop: "10px" }} />
+          <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: "11px", paddingTop: "8px" }} />
         </PieChart>
       </ResponsiveContainer>
     </div>

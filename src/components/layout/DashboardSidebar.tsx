@@ -69,19 +69,19 @@ export default function DashboardSidebar({ role }: SidebarProps) {
   ]
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-white text-slate-700 flex flex-col justify-between p-4 border-r border-slate-200">
+    <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-white text-slate-700 flex flex-col justify-between border-r border-slate-200">
 
       <div>
-        {/* Brand Header */}
-        <div className="flex items-center gap-3 px-2 py-4 mb-6 border-b border-slate-100">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#F59E0B] text-white">
+        {/* Brand Header - exact h-16 alignment with top header */}
+        <div className="flex h-16 items-center gap-3 px-6 border-b border-slate-200">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#F59E0B] text-white shrink-0">
             <GraduationCap className="h-5 w-5 text-white" />
           </div>
           <span className="font-extrabold text-lg text-slate-900 tracking-tight">{SITE_NAME}</span>
         </div>
 
         {/* Nav Items */}
-        <nav className="space-y-1">
+        <nav className="space-y-1 p-4">
           {navItems.map((item) => {
             const Icon = item.icon
             
@@ -118,7 +118,7 @@ export default function DashboardSidebar({ role }: SidebarProps) {
       </div>
 
       {/* Logout Footer */}
-      <div className="pt-4 border-t border-slate-100">
+      <div className="p-4 border-t border-slate-100">
         <Link
           href="/login"
           className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"

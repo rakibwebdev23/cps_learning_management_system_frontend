@@ -11,8 +11,8 @@ export default function CalendarWidget() {
   const startOffset = 3 // May 2024 starts on Wednesday
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="flex items-center justify-between mb-4">
+    <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
         <h3 className="text-sm font-bold text-slate-900">Calendar</h3>
         <div className="flex items-center gap-1">
           <span className="text-xs font-bold text-slate-700 mr-2">May 2024</span>
