@@ -1,57 +1,57 @@
-@import "tailwindcss";
-
-/* inter font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
 
 @layer base {
   :root {
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 222.2 84% 4.9%; /* #0F172A */
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 38 92% 50%; /* #F59E0B Yellow/Amber */
+    --primary-foreground: 0 0% 100%; /* WHITE text for all primary buttons */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%; /* #475569 */
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%; /* #EF4444 */
+    --destructive-foreground: 0 0% 100%;
+    --border: 214.3 31.8% 91.4%; /* #E2E8F0 */
+    --input: 214.3 31.8% 91.4%;
+    --ring: 38 92% 50%;
+    --radius: 0.75rem;
+
+    --navy: #0F172A;
+    --primary-indigo: #F59E0B;
+    --primary-yellow: #F59E0B;
+    --success-green: #10B981;
+    --warning-amber: #F59E0B;
+    --error-red: #EF4444;
+  }
+
+  .dark {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
-    --chart-1: 221.2 83.2% 53.3%;
-    --chart-2: 262.1 83.3% 57.8%;
-    --chart-3: 142.1 76.2% 36.3%;
-    --chart-4: 38.7 92% 50.2%;
-    --chart-5: 0 84.2% 60.2%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 38 92% 50%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --ring: 38 92% 50%;
   }
 }
 
@@ -87,43 +87,44 @@
     border-color: hsl(var(--border));
   }
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background-color: #FFFFFF;
+    color: #0F172A;
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
-    letter-spacing: -0.025em;
+  a, button, [role="button"], input[type="submit"], input[type="button"], select, label {
+    cursor: pointer !important;
   }
+
+  /* Typography System */
+  .text-display-xl { font-size: 64px; line-height: 72px; font-weight: 700; }
+  .text-display-lg { font-size: 56px; line-height: 64px; font-weight: 700; }
+  .text-display-md { font-size: 48px; line-height: 56px; font-weight: 700; }
+  .text-h1 { font-size: 40px; line-height: 44px; font-weight: 700; }
+  .text-h2 { font-size: 34px; line-height: 38px; font-weight: 700; }
+  .text-h3 { font-size: 24px; line-height: 32px; font-weight: 600; }
+  .text-h4 { font-size: 20px; line-height: 28px; font-weight: 600; }
+  .text-h5 { font-size: 18px; line-height: 26px; font-weight: 600; }
+  .text-h6 { font-size: 16px; line-height: 24px; font-weight: 600; }
+  .text-body-lg { font-size: 18px; line-height: 28px; font-weight: 400; }
+  .text-body { font-size: 16px; line-height: 24px; font-weight: 400; }
+  .text-body-sm { font-size: 14px; line-height: 20px; font-weight: 400; }
+  .text-caption { font-size: 13px; line-height: 18px; font-weight: 400; }
+  .text-label { font-size: 12px; line-height: 16px; font-weight: 500; }
+  .text-overline { font-size: 11px; line-height: 16px; font-weight: 600; text-transform: uppercase; }
+  .text-stat { font-size: 28px; line-height: 36px; font-weight: 700; }
+  .text-stat-lg { font-size: 32px; line-height: 40px; font-weight: 700; }
 }
 
 @layer utilities {
-  /* sidebar transition */
   .sidebar-transition {
     transition: width 0.2s ease, transform 0.2s ease;
   }
-  /* card hover */
   .card-hover {
     transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
   .card-hover:hover {
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
     transform: translateY(-2px);
-  }
-  /* fade in */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .animate-fade-in {
-    animation: fadeIn 0.3s ease both;
-  }
-  /* progress bar animation */
-  @keyframes progressIn {
-    from { width: 0%; }
-  }
-  .animate-progress {
-    animation: progressIn 0.6s ease both;
   }
 }
