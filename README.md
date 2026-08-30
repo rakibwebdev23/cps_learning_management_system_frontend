@@ -1,5 +1,9 @@
 # CPS LMS - Frontend
 
+> 🌐 **Live Website**: [https://cps-lms-gules.vercel.app/](https://cps-lms-gules.vercel.app/)  
+> 📚 **API Documentation (Swagger)**: [https://cps-lms.up.railway.app/documentation](https://cps-lms.up.railway.app/documentation)  
+> ⚙️ **Backend Production API**: [https://cps-lms.up.railway.app/api](https://cps-lms.up.railway.app/api)
+
 This is the official frontend application for the CPS Learning Management System (LMS), built with modern web technologies to deliver a fast, responsive, and dynamic e-learning experience.
 
 ## Tech Stack

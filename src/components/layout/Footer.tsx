@@ -13,10 +13,10 @@ export default function Footer() {
   ]
 
   const quickLinks = [
+    { label: "API Documentation", href: "https://cps-lms.up.railway.app/documentation", external: true },
     { label: "Support Center", href: "/contact" },
     { label: "Create Account", href: "/register" },
     { label: "Business Policy", href: "/about" },
-    { label: "Terms & Conditions", href: "/about" },
     { label: "All Courses", href: "/courses" },
   ]
 
@@ -70,10 +70,22 @@ export default function Footer() {
             <ul className="space-y-3 font-medium">
               {quickLinks.map((item, idx) => (
                 <li key={idx}>
-                  <Link href={item.href} className="flex items-center gap-2 hover:text-[#0075FD] transition-colors group cursor-pointer text-slate-600">
-                    <ChevronsRight className="w-3.5 h-3.5 text-[#0075FD] group-hover:translate-x-1 transition-transform" />
-                    <span>{item.label}</span>
-                  </Link>
+                  {item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 hover:text-[#0075FD] transition-colors group cursor-pointer text-slate-600"
+                    >
+                      <ChevronsRight className="w-3.5 h-3.5 text-[#0075FD] group-hover:translate-x-1 transition-transform" />
+                      <span>{item.label}</span>
+                    </a>
+                  ) : (
+                    <Link href={item.href} className="flex items-center gap-2 hover:text-[#0075FD] transition-colors group cursor-pointer text-slate-600">
+                      <ChevronsRight className="w-3.5 h-3.5 text-[#0075FD] group-hover:translate-x-1 transition-transform" />
+                      <span>{item.label}</span>
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
