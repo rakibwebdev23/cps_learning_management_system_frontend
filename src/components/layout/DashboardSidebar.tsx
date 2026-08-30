@@ -1,12 +1,16 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import {
   GraduationCap, LayoutDashboard, BookOpen, Layers, HelpCircle, Award,
   MessageSquare, User, Settings, LogOut, Shield, FileText, BarChart3, Users
 } from "lucide-react"
 import { SITE_NAME } from "@/lib/constants"
+import { useAppDispatch } from "@/redux/hooks"
+import { logout } from "@/redux/api/featuresApi/auth/authSlice"
+import { baseApi } from "@/redux/api/baseApi/baseApi"
 
 interface SidebarProps {
   role: "STUDENT" | "INSTRUCTOR" | "CONTENT_MANAGER" | "ADMIN"
@@ -14,6 +18,19 @@ interface SidebarProps {
 
 export default function DashboardSidebar({ role }: SidebarProps) {
   const pathname = usePathname()
+  const router = useRouter()
+  const dispatch = useAppDispatch()
+
+  const handleLogout = () => {
+    if (typeof document !== "undefined") {
+      document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+      document.cookie = "access=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+      document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    }
+    dispatch(logout())
+    dispatch(baseApi.util.resetApiState())
+    window.location.href = "/"
+  }
 
   // Dynamic menu per role
   const getNavItems = () => {
@@ -73,11 +90,10 @@ export default function DashboardSidebar({ role }: SidebarProps) {
 
       <div>
         {/* Brand Header - exact h-16 alignment with top header */}
-        <div className="flex h-16 items-center gap-3 px-6 border-b border-slate-200">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#F59E0B] text-white shrink-0">
-            <GraduationCap className="h-5 w-5 text-white" />
-          </div>
-          <span className="font-extrabold text-lg text-slate-900 tracking-tight">{SITE_NAME}</span>
+        <div className="flex h-16 items-center px-6 border-b border-slate-200">
+          <Link href="/">
+            <Image src="/logo.png" alt="CPS LMS" width={140} height={40} className="h-9 w-auto object-contain" priority />
+          </Link>
         </div>
 
         {/* Nav Items */}
@@ -96,12 +112,12 @@ export default function DashboardSidebar({ role }: SidebarProps) {
                 href={item.href}
                 className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all cursor-pointer ${
                   isActive
-                    ? "bg-slate-200 text-slate-900 font-bold"
+                    ? "bg-blue-50 text-[#0075FD] font-bold"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <Icon className={`h-4 w-4 ${isActive ? "text-slate-900" : "text-slate-500"}`} />
+                  <Icon className={`h-4 w-4 ${isActive ? "text-[#0075FD]" : "text-slate-500"}`} />
                   <span>{item.label}</span>
                 </div>
                 {item.badge && (
@@ -119,13 +135,14 @@ export default function DashboardSidebar({ role }: SidebarProps) {
 
       {/* Logout Footer */}
       <div className="p-4 border-t border-slate-100">
-        <Link
-          href="/login"
-          className="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+        <button
+          onClick={handleLogout}
+          type="button"
+          className="flex w-full items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
         >
           <LogOut className="h-4 w-4" />
           <span>Logout</span>
-        </Link>
+        </button>
       </div>
 
     </aside>

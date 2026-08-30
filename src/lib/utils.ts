@@ -37,3 +37,14 @@ export function calculateProgress(completed: number, total: number): number {
   if (total === 0) return 0
   return Math.round((completed / total) * 100)
 }
+
+export function isValidImageUrl(url?: string): boolean {
+  if (!url || typeof url !== "string") return false
+  const trimmed = url.trim()
+  if (trimmed === "string" || trimmed === "" || trimmed === "undefined" || trimmed === "null") return false
+  return trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed.startsWith("/")
+}
+
+export function getValidImageUrl(url?: string, fallback = "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80"): string {
+  return isValidImageUrl(url) ? url!.trim() : fallback
+}

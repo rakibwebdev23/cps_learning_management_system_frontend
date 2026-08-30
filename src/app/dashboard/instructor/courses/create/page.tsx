@@ -85,7 +85,7 @@ export default function CreateCoursePage() {
           <div key={s} className="flex items-center gap-0">
             <div className="flex items-center gap-2">
               <div className={cn("flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold transition-colors",
-                i < step ? "bg-emerald-600 text-white" : i === step ? "bg-[#F59E0B] text-white" : "bg-slate-200 text-slate-500"
+                i < step ? "bg-emerald-600 text-white" : i === step ? "bg-[#0075FD] text-white" : "bg-slate-200 text-slate-500"
               )}>
                 {i < step ? <Check className="h-4 w-4" /> : i + 1}
               </div>
@@ -147,7 +147,7 @@ export default function CreateCoursePage() {
           <div className="rounded-xl border border-slate-200 bg-white p-6 w-full shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-semibold text-slate-900">Lessons</h2>
-              <Button type="button" size="sm" onClick={addLesson} className="gap-1 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold cursor-pointer">+ Add Lesson</Button>
+              <Button type="button" size="sm" onClick={addLesson} className="gap-1 bg-[#0075FD] hover:bg-blue-600 text-white font-bold cursor-pointer">+ Add Lesson</Button>
             </div>
             <Separator className="mb-4" />
             <div className="space-y-3">
@@ -207,7 +207,7 @@ export default function CreateCoursePage() {
             <ArrowLeft className="h-4 w-4" />Previous
           </Button>
           {step < steps.length - 1 ? (
-            <Button type="button" onClick={() => setStep((s) => s + 1)} className="gap-2 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold cursor-pointer">
+            <Button type="button" onClick={() => setStep((s) => s + 1)} className="gap-2 bg-[#0075FD] hover:bg-blue-600 text-white font-bold cursor-pointer">
               Next<ArrowRight className="h-4 w-4 text-white" />
             </Button>
           ) : (

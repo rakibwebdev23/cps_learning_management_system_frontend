@@ -79,14 +79,14 @@ export const quizPerformanceData = [
 // course completion chart
 export const courseCompletionData = [
   { name: "Completed", value: 28, color: "#10B981" },
-  { name: "In Progress", value: 54, color: "#F59E0B" },
+  { name: "In Progress", value: 54, color: "#0075FD" },
   { name: "Not Started", value: 18, color: "#CBD5E1" },
 ]
 
 // user distribution chart
 export const userDistributionData = [
-  { name: "Students", value: 7, color: "#F59E0B" },
-  { name: "Instructors", value: 3, color: "#D97706" },
+  { name: "Students", value: 7, color: "#0075FD" },
+  { name: "Instructors", value: 3, color: "#0052B4" },
   { name: "Content Managers", value: 1, color: "#10B981" },
   { name: "Admins", value: 1, color: "#0F172A" },
 ]

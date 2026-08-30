@@ -10,7 +10,6 @@ import EmptyState from "@/components/common/EmptyState"
 import { COURSE_CATEGORIES, COURSE_LEVELS, COURSE_SORT_OPTIONS } from "@/lib/constants"
 import { useDebounce } from "@/hooks/useDebounce"
 import { useGetCoursesQuery } from "@/redux/api/featuresApi/course/course.api"
-import { getPublishedCourses } from "@/data/courses"
 
 export default function CoursesPage() {
   const [search, setSearch] = useState("")
@@ -23,9 +22,9 @@ export default function CoursesPage() {
     search: debouncedSearch,
   })
 
-  // Map API data if present, otherwise fallback to local dataset
+  // Map API data
   const allCourses = useMemo(() => {
-    if (apiData?.data && apiData.data.length > 0) {
+    if (apiData?.data) {
       return apiData.data.map((c) => ({
         id: String(c.documentId || c.id),
         title: c.title,
@@ -33,25 +32,26 @@ export default function CoursesPage() {
         shortDescription: c.description || "Professional course at CPS LMS",
         description: c.description || "Detailed course overview...",
         thumbnail: c.thumbnail_url || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
-        category: "Web Development",
-        level: "intermediate" as const,
-        price: c.price || 49,
+        category: c.category || "Uncategorized",
+        level: c.level || "beginner",
+        price: c.price !== undefined && c.price !== null ? c.price : 49,
         instructor: {
           id: String(c.instructor?.id || "1"),
-          name: c.instructorName || c.instructor?.username || "CPS Instructor",
+          name: c.instructor?.username || c.instructorName || "CPS Instructor",
           avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80",
         },
-        rating: 4.8,
-        reviewCount: 124,
-        studentCount: 1540,
+        instructorName: c.instructor?.username || c.instructorName || "CPS Instructor",
+        rating: c.rating || 4.8,
+        reviewCount: c.reviewCount || 124,
+        studentCount: c.studentCount || 1540,
         lessonCount: c.lessonCount || 12,
-        durationMinutes: 360,
+        durationMinutes: c.durationMinutes || 360,
         isPublished: true,
         isFeatured: true,
         createdAt: c.createdAt || new Date().toISOString(),
       }))
     }
-    return getPublishedCourses()
+    return []
   }, [apiData])
 
   const filtered = useMemo(() => {
@@ -72,12 +72,12 @@ export default function CoursesPage() {
   const hasFilters = category !== "all" || level !== "all" || search !== ""
 
   return (
-    <div className="bg-white dark:bg-slate-900 min-h-screen">
+    <div className="bg-white min-h-screen">
       {/* page header */}
-      <div className="bg-slate-900 text-white py-14">
+      <div className="bg-white border-b border-slate-100 text-slate-900 pt-20 pb-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold mb-2">Browse All Courses</h1>
-          <p className="text-slate-400">Explore expert-led courses on CPS LMS live platform.</p>
+          <h1 className="text-3xl font-extrabold text-black tracking-tight mb-2">Browse All Courses</h1>
+          <p className="text-slate-600 font-medium">Explore expert-led courses on CPS LMS live platform.</p>
         </div>
       </div>
 
@@ -128,7 +128,7 @@ export default function CoursesPage() {
 
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-[#F59E0B]" />
+            <Loader2 className="w-8 h-8 animate-spin text-[#0075FD]" />
           </div>
         ) : filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

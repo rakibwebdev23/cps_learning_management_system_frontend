@@ -9,7 +9,7 @@ const stats = [
 
 export default function LearningStats() {
   return (
-    <section className="py-20 bg-[#F59E0B]">
+    <section className="py-20 bg-[#0075FD]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-white">Trusted by Thousands of Learners</h2>

@@ -24,7 +24,7 @@ export default function QuizPerformanceChart() {
             }}
           />
           <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: "12px" }} />
-          <Bar dataKey="avgScore" name="Avg Score (%)" fill="#F59E0B" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="avgScore" name="Avg Score (%)" fill="#0075FD" radius={[4, 4, 0, 0]} />
           <Bar dataKey="passRate" name="Pass Rate (%)" fill="#10B981" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>

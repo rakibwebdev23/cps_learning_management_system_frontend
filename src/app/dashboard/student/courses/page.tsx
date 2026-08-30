@@ -9,7 +9,6 @@ import PageHeader from "@/components/common/PageHeader"
 import EmptyState from "@/components/common/EmptyState"
 import { useGetEnrollmentsQuery } from "@/redux/api/featuresApi/enrollment/enrollment.api"
 import { useAppSelector } from "@/redux/hooks"
-import { getEnrollmentsByStudent } from "@/data/enrollments"
 
 function CourseProgressCard({ e }: { e: any }) {
   return (
@@ -19,12 +18,12 @@ function CourseProgressCard({ e }: { e: any }) {
         <p className="font-semibold text-slate-900 text-sm line-clamp-2 mb-1 leading-snug">{e.courseTitle}</p>
         <p className="text-xs text-slate-500 mb-3">by {e.instructorName}</p>
         <div className="flex items-center gap-2 mb-3">
-          <Progress value={e.progress} className="h-2 flex-1 [&>div]:bg-[#F59E0B]" />
+          <Progress value={e.progress} className="h-2 flex-1 [&>div]:bg-[#0075FD]" />
           <span className="text-xs font-semibold text-slate-700">{e.progress}%</span>
         </div>
         <p className="text-xs text-slate-500">{e.completedLessons}/{e.totalLessons} lessons completed</p>
       </div>
-      <Button size="sm" className="h-8 text-xs bg-[#F59E0B] hover:bg-amber-600 text-white font-bold gap-1 shrink-0 cursor-pointer" asChild>
+      <Button size="sm" className="h-8 text-xs bg-[#0075FD] hover:bg-blue-600 text-white font-bold gap-1 shrink-0 cursor-pointer" asChild>
         <Link href={`/dashboard/student/courses/${e.courseId}`}>Continue <ArrowRight className="h-3 w-3 text-white" /></Link>
       </Button>
     </div>
@@ -38,10 +37,10 @@ export default function StudentCoursesPage() {
   )
 
   const all = useMemo(() => {
-    if (apiData?.data && apiData.data.length > 0) {
+    if (apiData?.data) {
       return apiData.data.map((item) => ({
         id: String(item.documentId || item.id),
-        courseId: String(item.course?.id || "1"),
+        courseId: String(item.course?.documentId || item.course?.id || "1"),
         courseTitle: item.course?.title || "CPS LMS Enrolled Course",
         courseThumbnail: item.course?.thumbnail_url || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
         instructorName: "CPS Instructor",
@@ -51,7 +50,7 @@ export default function StudentCoursesPage() {
         status: item.status || "active",
       }))
     }
-    return getEnrollmentsByStudent("u6")
+    return []
   }, [apiData])
 
   const active = useMemo(() => all.filter((e) => e.status === "active"), [all])
@@ -63,7 +62,7 @@ export default function StudentCoursesPage() {
       <PageHeader title="My Courses" description="Track your enrolled courses and continue learning." />
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
-          <Loader2 className="w-8 h-8 animate-spin text-[#F59E0B]" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#0075FD]" />
         </div>
       ) : (
         <Tabs defaultValue="all">
@@ -85,7 +84,7 @@ export default function StudentCoursesPage() {
                   {list.map((e) => <CourseProgressCard key={e.id} e={e} />)}
                 </div>
               ) : (
-                <EmptyState icon={BookOpen} title="No courses here" description="Browse our catalog to find your next course." action={<Button asChild className="bg-[#F59E0B] hover:bg-amber-600 text-white font-bold"><Link href="/courses">Browse Courses</Link></Button>} />
+                <EmptyState icon={BookOpen} title="No courses here" description="Browse our catalog to find your next course." action={<Button asChild className="bg-[#0075FD] hover:bg-blue-600 text-white font-bold"><Link href="/courses">Browse Courses</Link></Button>} />
               )}
             </TabsContent>
           ))}

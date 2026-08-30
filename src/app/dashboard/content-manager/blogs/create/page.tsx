@@ -79,7 +79,7 @@ export default function CreateBlogPage() {
           <Input placeholder="React, WebDev, Tutorial" {...register("tags")} />
         </div>
         <Separator />
-        <Button type="submit" className="gap-2 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold"><Save className="h-4 w-4 text-white" />Save Post</Button>
+        <Button type="submit" className="gap-2 bg-[#0075FD] hover:bg-blue-600 text-white font-bold"><Save className="h-4 w-4 text-white" />Save Post</Button>
       </form>
     </div>
   )

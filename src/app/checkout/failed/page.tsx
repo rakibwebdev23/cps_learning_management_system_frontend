@@ -18,14 +18,14 @@ export default function CheckoutFailedPage() {
           <li>Network connectivity issue</li>
         </ul>
         <div className="flex flex-col gap-3">
-          <Button className="w-full bg-[#F59E0B] hover:bg-amber-600 text-white font-bold gap-2" asChild>
+          <Button className="w-full bg-[#0075FD] hover:bg-blue-600 text-white font-bold gap-2" asChild>
             <Link href="/checkout"><RefreshCcw className="h-4 w-4" /> Try Again</Link>
           </Button>
           <Button variant="outline" className="w-full gap-2" asChild>
             <Link href="/courses"><ArrowLeft className="h-4 w-4" /> Back to Course</Link>
           </Button>
         </div>
-        <p className="text-xs text-slate-400 mt-4">Need help? <a href="mailto:support@cpslms.com" className="text-amber-600 hover:underline">Contact support</a></p>
+        <p className="text-xs text-slate-400 mt-4">Need help? <a href="mailto:support@cpslms.com" className="text-[#0075FD] hover:underline">Contact support</a></p>
       </div>
     </div>
   )

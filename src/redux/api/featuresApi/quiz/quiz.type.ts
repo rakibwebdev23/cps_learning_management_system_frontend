@@ -9,6 +9,8 @@ export interface QuizQuestion {
   id: number | string
   documentId?: string
   question: string
+  text?: string
+  questionText?: string
   order?: number
   options?: QuizOption[]
 }
@@ -18,6 +20,8 @@ export interface Quiz {
   documentId?: string
   title: string
   description?: string
+  timeLimitMinutes?: number
+  passingScore?: number
   course?: {
     id: number | string
     title?: string
@@ -38,8 +42,9 @@ export interface QuizResponse {
 
 export interface CreateQuizPayload {
   data: {
-    title: string
+    title?: string
     description?: string
     course?: string | number
+    questions?: any[]
   }
 }

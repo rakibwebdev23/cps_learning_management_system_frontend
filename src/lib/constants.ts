@@ -77,7 +77,7 @@ export const statusColors: Record<string, string> = {
   active: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
   inactive: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
   suspended: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
-  completed: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+  completed: "bg-blue-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
   dropped: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
   published: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
   draft: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
@@ -86,6 +86,6 @@ export const statusColors: Record<string, string> = {
 
 export const levelColors: Record<string, string> = {
   beginner: "bg-green-100 text-green-700",
-  intermediate: "bg-amber-100 text-amber-700",
+  intermediate: "bg-blue-100 text-amber-700",
   advanced: "bg-purple-100 text-purple-700",
 }

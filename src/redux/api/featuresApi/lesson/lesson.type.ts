@@ -3,11 +3,16 @@ export interface Lesson {
   documentId?: string
   title: string
   content?: string
+  description?: string
   video_url?: string
+  videoUrl?: string
   order?: number
   durationMinutes?: number
+  isFree?: boolean
+  type?: string
   course?: {
     id: number | string
+    documentId?: string
     title?: string
   }
   createdAt?: string

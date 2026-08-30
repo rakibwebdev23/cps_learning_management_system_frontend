@@ -9,26 +9,26 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 38 92% 50%; /* #F59E0B Yellow/Amber */
+    --primary: 212 100% 50%; /* #0075FD Electric Blue */
     --primary-foreground: 0 0% 100%; /* WHITE text for all primary buttons */
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%; /* #475569 */
-    --accent: 38 92% 50%;
+    --accent: 212 100% 50%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%; /* #EF4444 */
     --destructive-foreground: 0 0% 100%;
     --border: 214.3 31.8% 91.4%; /* #E2E8F0 */
     --input: 214.3 31.8% 91.4%;
-    --ring: 38 92% 50%;
+    --ring: 212 100% 50%;
     --radius: 0.75rem;
 
     --navy: #0F172A;
-    --primary-indigo: #F59E0B;
-    --primary-yellow: #F59E0B;
+    --primary-indigo: #0075FD;
+    --primary-yellow: #0075FD;
     --success-green: #10B981;
-    --warning-amber: #F59E0B;
+    --warning-amber: #0075FD;
     --error-red: #EF4444;
   }
 
@@ -39,19 +39,19 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 38 92% 50%;
+    --primary: 212 100% 50%;
     --primary-foreground: 0 0% 100%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 38 92% 50%;
+    --accent: 212 100% 50%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 38 92% 50%;
+    --ring: 212 100% 50%;
   }
 }
 
@@ -87,8 +87,8 @@
     border-color: hsl(var(--border));
   }
   body {
-    background-color: #FFFFFF;
-    color: #0F172A;
+    background-color: #FFFFFF !important;
+    color: #0F172A !important;
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }

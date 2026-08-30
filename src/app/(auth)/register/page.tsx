@@ -92,11 +92,8 @@ export default function RegisterPage() {
       <div className="w-full lg:w-1/2 p-8 lg:py-8 lg:px-12 flex flex-col justify-between bg-white h-full min-h-[520px] lg:min-h-0">
         {/* Brand Header */}
         <div className="relative">
-          <Link href="/" className="inline-flex items-center gap-3 cursor-pointer">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F59E0B] text-white shadow-sm shadow-amber-200">
-              <GraduationCap className="h-6 w-6 text-white" />
-            </div>
-            <span className="font-extrabold text-xl text-slate-900 tracking-tight">{SITE_NAME}</span>
+          <Link href="/" className="inline-flex items-center cursor-pointer">
+            <Image src="/logo.png" alt="CPS LMS" width={150} height={45} className="h-10 w-auto object-contain" priority />
           </Link>
         </div>
 
@@ -127,7 +124,7 @@ export default function RegisterPage() {
                   type="text"
                   {...register("username")}
                   placeholder="John Doe"
-                  className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700"
+                  className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#0075FD] focus:border-transparent transition-all text-slate-700"
                   required
                 />
               </div>
@@ -145,7 +142,7 @@ export default function RegisterPage() {
                   type="email"
                   {...register("email")}
                   placeholder="name@example.com"
-                  className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700"
+                  className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#0075FD] focus:border-transparent transition-all text-slate-700"
                   required
                 />
                 {isEmailValid && (
@@ -166,7 +163,7 @@ export default function RegisterPage() {
                   type={showPassword ? "text" : "password"}
                   {...register("password")}
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700 tracking-wider"
+                  className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#0075FD] focus:border-transparent transition-all text-slate-700 tracking-wider"
                   required
                 />
                 <button
@@ -196,7 +193,7 @@ export default function RegisterPage() {
                   control={control}
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-full pl-12 pr-4 py-5 border border-slate-200 rounded-full text-sm focus:ring-2 focus:ring-[#F59E0B] text-slate-700 cursor-pointer">
+                      <SelectTrigger className="w-full pl-12 pr-4 py-5 border border-slate-200 rounded-full text-sm focus:ring-2 focus:ring-[#0075FD] text-slate-700 cursor-pointer">
                         <SelectValue placeholder="Select role" />
                       </SelectTrigger>
                       <SelectContent>
@@ -217,7 +214,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={isRegisterLoading}
-                className="w-full py-3.5 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold rounded-full text-sm shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+                className="w-full py-3.5 bg-[#0075FD] hover:bg-blue-600 text-white font-bold rounded-full text-sm shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 {isRegisterLoading ? (
                   <>
@@ -236,7 +233,7 @@ export default function RegisterPage() {
             Already have an account?{" "}
             <Link
               href="/login"
-              className="text-[#F59E0B] font-bold hover:underline cursor-pointer"
+              className="text-[#0075FD] font-bold hover:underline cursor-pointer"
             >
               Log In
             </Link>

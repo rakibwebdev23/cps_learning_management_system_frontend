@@ -4,8 +4,10 @@ export interface User {
   id: number | string
   documentId?: string
   username: string
+  name?: string
   email: string
   user_role: UserRole
+  role?: any
   avatar?: string
   blocked?: boolean
   confirmed?: boolean

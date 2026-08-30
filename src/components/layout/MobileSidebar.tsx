@@ -1,8 +1,9 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, GraduationCap } from "lucide-react"
+import { Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -30,11 +31,10 @@ export default function MobileSidebar({ role }: { role: Role }) {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-64 p-0 bg-white">
-        <div className="flex h-16 items-center gap-2.5 border-b border-slate-100 px-4 font-bold text-slate-900 bg-white">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#F59E0B] text-white">
-            <GraduationCap className="h-4 w-4 text-white" />
-          </div>
-          <span className="font-extrabold text-base tracking-tight">{SITE_NAME}</span>
+        <div className="flex h-16 items-center border-b border-slate-100 px-4 font-bold text-slate-900 bg-white">
+          <Link href="/">
+            <Image src="/logo.png" alt="CPS LMS" width={130} height={38} className="h-8 w-auto object-contain" priority />
+          </Link>
         </div>
         <nav className="py-4 px-2 space-y-1 bg-white">
           {navItems.map((item) => {

@@ -15,23 +15,23 @@ const continueLearning = [
 ]
 
 const recentQuizResults = [
-  { title: "JavaScript Fundamentals", score: "90%", date: "2 days ago", color: "text-[#F59E0B] bg-amber-50" },
-  { title: "React Components", score: "85%", date: "5 days ago", color: "text-[#F59E0B] bg-amber-50" },
+  { title: "JavaScript Fundamentals", score: "90%", date: "2 days ago", color: "text-[#0075FD] bg-blue-50" },
+  { title: "React Components", score: "85%", date: "5 days ago", color: "text-[#0075FD] bg-blue-50" },
   { title: "Node.js Basics", score: "76%", date: "1 week ago", color: "text-emerald-600 bg-emerald-50" },
 ]
 
 const recentActivities = [
   { title: "Completed lesson \"React Hooks\"", time: "2 hours ago", icon: FileCheck, color: "text-emerald-600 bg-emerald-50" },
-  { title: "Started quiz \"JavaScript Fundamentals\"", time: "1 day ago", icon: HelpCircle, color: "text-[#F59E0B] bg-amber-50" },
-  { title: "Scored 90% in \"React Components Quiz\"", time: "2 days ago", icon: Trophy, color: "text-[#F59E0B] bg-amber-50" },
-  { title: "Enrolled in \"Node.js & Express.js Mastery\"", time: "3 days ago", icon: BookOpen, color: "text-[#F59E0B] bg-amber-50" },
+  { title: "Started quiz \"JavaScript Fundamentals\"", time: "1 day ago", icon: HelpCircle, color: "text-[#0075FD] bg-blue-50" },
+  { title: "Scored 90% in \"React Components Quiz\"", time: "2 days ago", icon: Trophy, color: "text-[#0075FD] bg-blue-50" },
+  { title: "Enrolled in \"Node.js & Express.js Mastery\"", time: "3 days ago", icon: BookOpen, color: "text-[#0075FD] bg-blue-50" },
   { title: "Completed lesson \"Node.js Basics\"", time: "1 week ago", icon: FileCheck, color: "text-emerald-600 bg-emerald-50" },
 ]
 
 const upcomingDeadlines = [
   { title: "React Assignment", date: "May 25, 2024", color: "bg-red-50 text-red-600 border-red-100" },
-  { title: "JavaScript Quiz", date: "May 28, 2024", color: "bg-amber-50 text-[#F59E0B] border-amber-100" },
-  { title: "Node.js Project", date: "June 2, 2024", color: "bg-amber-50 text-[#F59E0B] border-amber-100" },
+  { title: "JavaScript Quiz", date: "May 28, 2024", color: "bg-blue-50 text-[#0075FD] border-blue-100" },
+  { title: "Node.js Project", date: "June 2, 2024", color: "bg-blue-50 text-[#0075FD] border-blue-100" },
 ]
 
 export default function StudentDashboard() {
@@ -46,9 +46,9 @@ export default function StudentDashboard() {
       {/* Row 1 Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
         <StatCard title="Enrolled Courses" value="8" icon={BookOpen} iconColor="text-emerald-600" iconBg="bg-emerald-50" />
-        <StatCard title="In Progress" value="3" icon={Clock} iconColor="text-[#F59E0B]" iconBg="bg-amber-50" />
-        <StatCard title="Completed" value="5" icon={CheckCircle} iconColor="text-[#F59E0B]" iconBg="bg-amber-50" />
-        <StatCard title="Quiz Average" value="87%" icon={Trophy} iconColor="text-amber-600" iconBg="bg-amber-50" />
+        <StatCard title="In Progress" value="3" icon={Clock} iconColor="text-[#0075FD]" iconBg="bg-blue-50" />
+        <StatCard title="Completed" value="5" icon={CheckCircle} iconColor="text-[#0075FD]" iconBg="bg-blue-50" />
+        <StatCard title="Quiz Average" value="87%" icon={Trophy} iconColor="text-[#0075FD]" iconBg="bg-blue-50" />
       </div>
 
       {/* Main Grid Layout */}
@@ -64,7 +64,7 @@ export default function StudentDashboard() {
             <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                 <h3 className="text-sm font-bold text-slate-900">Continue Learning</h3>
-                <Link href="/dashboard/student/courses" className="text-xs font-semibold text-[#F59E0B] hover:underline">View All</Link>
+                <Link href="/dashboard/student/courses" className="text-xs font-semibold text-[#0075FD] hover:underline">View All</Link>
               </div>
               <div className="space-y-4">
                 {continueLearning.map((item) => (
@@ -86,7 +86,7 @@ export default function StudentDashboard() {
             <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                 <h3 className="text-sm font-bold text-slate-900">Recent Quiz Results</h3>
-                <Link href="/dashboard/student/results" className="text-xs font-semibold text-[#F59E0B] hover:underline">View All</Link>
+                <Link href="/dashboard/student/results" className="text-xs font-semibold text-[#0075FD] hover:underline">View All</Link>
               </div>
               <div className="space-y-3">
                 {recentQuizResults.map((item, idx) => (
@@ -121,7 +121,7 @@ export default function StudentDashboard() {
             <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                 <h3 className="text-sm font-bold text-slate-900">My Courses</h3>
-                <Link href="/dashboard/student/courses" className="text-xs font-semibold text-[#F59E0B] hover:underline">View All</Link>
+                <Link href="/dashboard/student/courses" className="text-xs font-semibold text-[#0075FD] hover:underline">View All</Link>
               </div>
               <div className="space-y-3.5">
                 {continueLearning.concat([{ id: "c-4", title: "JavaScript Advanced", progress: 60, thumbnail: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=300&auto=format&fit=crop&q=80" }]).map((c) => (
@@ -143,7 +143,7 @@ export default function StudentDashboard() {
             <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                 <h3 className="text-sm font-bold text-slate-900">Recent Activity</h3>
-                <span className="text-xs font-semibold text-[#F59E0B]">View All</span>
+                <span className="text-xs font-semibold text-[#0075FD]">View All</span>
               </div>
               <div className="space-y-3.5">
                 {recentActivities.map((act, idx) => {
@@ -177,10 +177,10 @@ export default function StudentDashboard() {
           <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <Flame className="h-4 w-4 text-[#F59E0B]" />
+                <Flame className="h-4 w-4 text-[#0075FD]" />
                 <h3 className="text-sm font-bold text-slate-900">Daily Goal & Streak</h3>
               </div>
-              <span className="text-xs font-extrabold text-[#F59E0B] bg-amber-50 px-2 py-0.5 rounded-md">5 Days 🔥</span>
+              <span className="text-xs font-extrabold text-[#0075FD] bg-blue-50 px-2 py-0.5 rounded-md">5 Days 🔥</span>
             </div>
 
             <div className="space-y-3">
@@ -197,7 +197,7 @@ export default function StudentDashboard() {
           <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="text-sm font-bold text-slate-900">Upcoming Deadlines</h3>
-              <span className="text-xs font-semibold text-[#F59E0B] hover:underline cursor-pointer">View All</span>
+              <span className="text-xs font-semibold text-[#0075FD] hover:underline cursor-pointer">View All</span>
             </div>
             <div className="space-y-2.5">
               {upcomingDeadlines.map((item, idx) => (
@@ -213,15 +213,15 @@ export default function StudentDashboard() {
           </div>
 
           {/* Quick Notice Card */}
-          <div className="rounded-2xl border border-amber-200/80 bg-amber-50/50 p-5 shadow-sm space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#F59E0B]">
+          <div className="rounded-2xl border border-blue-200/80 bg-blue-50/50 p-5 shadow-sm space-y-3">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#0075FD]">
               <Target className="h-4 w-4" />
               <span>Instructor Announcement</span>
             </div>
             <p className="text-xs text-slate-700 leading-relaxed font-medium">
               Live Q&A session for React Mastery starts tomorrow at 6:00 PM. Don't forget to submit your questions early.
             </p>
-            <Link href="/courses" className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F59E0B] hover:underline pt-1">
+            <Link href="/courses" className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0075FD] hover:underline pt-1">
               Join Live Event <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>

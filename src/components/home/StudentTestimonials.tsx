@@ -54,7 +54,7 @@ export default function StudentTestimonials() {
                 </p>
               </div>
 
-              <div className="flex items-center gap-1 text-amber-500 pt-3 border-t border-slate-100 text-xs font-bold">
+              <div className="flex items-center gap-1 text-[#0075FD] pt-3 border-t border-slate-100 text-xs font-bold">
                 {"★".repeat(5)} <span className="text-slate-900 ml-1">5.0</span>
               </div>
 

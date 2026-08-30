@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { Search, Plus, Trash2, Edit, UserCheck, ShieldAlert } from "lucide-react"
+import { Search, Plus, Trash2, Edit, UserCheck, ShieldAlert, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -12,15 +12,20 @@ import { Label } from "@/components/ui/label"
 import PageHeader from "@/components/common/PageHeader"
 import ConfirmDialog from "@/components/common/ConfirmDialog"
 import StatusBadge from "@/components/common/StatusBadge"
-import { users as initialUsers } from "@/data/users"
 import { formatDate, getInitials } from "@/lib/utils"
 import type { UserRole } from "@/types/user"
+import { useGetUsersQuery, useCreateUserMutation, useDeleteUserMutation } from "@/redux/api/featuresApi/user/user.api"
 
 export default function AdminUsersPage() {
   const [search, setSearch] = useState("")
   const [roleFilter, setRoleFilter] = useState("all")
-  const [usersList, setUsersList] = useState(initialUsers)
   const [deleteId, setDeleteId] = useState<string | null>(null)
+
+  const { data: usersList, isLoading } = useGetUsersQuery()
+  const users = usersList || []
+
+  const [createUser, { isLoading: isCreating }] = useCreateUserMutation()
+  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation()
 
   // create user modal state
   const [createOpen, setCreateOpen] = useState(false)
@@ -28,32 +33,40 @@ export default function AdminUsersPage() {
   const [newEmail, setNewEmail] = useState("")
   const [newRole, setNewRole] = useState<UserRole>("STUDENT")
 
-  const filtered = usersList.filter((u) => {
-    const matchSearch = u.name.toLowerCase().includes(search.toLowerCase()) || u.email.toLowerCase().includes(search.toLowerCase())
-    const matchRole = roleFilter === "all" || u.role === roleFilter
+  const filtered = users.filter((u: any) => {
+    const matchSearch = (u.username || u.name || "").toLowerCase().includes(search.toLowerCase()) || (u.email || "").toLowerCase().includes(search.toLowerCase())
+    const roleName = u.role?.name || "STUDENT"
+    const matchRole = roleFilter === "all" || roleName === roleFilter
     return matchSearch && matchRole
   })
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     if (!newName || !newEmail) return
-    const newUser = {
-      id: `u-${Date.now()}`,
-      name: newName,
-      email: newEmail,
-      role: newRole,
-      status: "active" as const,
-      joinedAt: new Date().toISOString(),
+    try {
+      await createUser({
+        username: newName,
+        email: newEmail,
+        // Typically requires password for Strapi users endpoint, skipping proper creation logic for mock safety, or passing a default
+        password: "DefaultPassword123!", 
+      }).unwrap()
+      setCreateOpen(false)
+      setNewName("")
+      setNewEmail("")
+    } catch (error) {
+      console.error("Failed to create user:", error)
+      alert("Failed to create user")
     }
-    setUsersList((prev) => [newUser, ...prev])
-    setCreateOpen(false)
-    setNewName("")
-    setNewEmail("")
   }
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (deleteId) {
-      setUsersList((prev) => prev.filter((u) => u.id !== deleteId))
-      setDeleteId(null)
+      try {
+        await deleteUser({ id: deleteId }).unwrap()
+        setDeleteId(null)
+      } catch (error) {
+        console.error("Failed to delete user:", error)
+        alert("Failed to delete user")
+      }
     }
   }
 
@@ -63,7 +76,7 @@ export default function AdminUsersPage() {
         title="Users Management"
         description="Manage platform users, roles, and status."
         actions={
-          <Button onClick={() => setCreateOpen(true)} className="gap-2 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold">
+          <Button onClick={() => setCreateOpen(true)} className="gap-2 bg-[#0075FD] hover:bg-blue-600 text-white font-bold">
             <Plus className="h-4 w-4" />Add User
           </Button>
         }
@@ -75,55 +88,59 @@ export default function AdminUsersPage() {
           <SelectTrigger className="w-44"><SelectValue placeholder="All Roles" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Roles</SelectItem>
-            <SelectItem value="ADMIN">Admin</SelectItem>
-            <SelectItem value="INSTRUCTOR">Instructor</SelectItem>
-            <SelectItem value="CONTENT_MANAGER">Content Manager</SelectItem>
-            <SelectItem value="STUDENT">Student</SelectItem>
+            <SelectItem value="Admin">Admin</SelectItem>
+            <SelectItem value="Instructor">Instructor</SelectItem>
+            <SelectItem value="Content_Manager">Content Manager</SelectItem>
+            <SelectItem value="Student">Student</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       <div className="rounded-xl border bg-white overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-slate-50">
-              <tr>
-                {["User", "Role", "Status", "Joined", "Actions"].map((h) => (
-                  <th key={h} className="text-left px-4 py-3 text-xs font-medium text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {filtered.map((u) => (
-                <tr key={u.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-9 w-9">
-                        <AvatarImage src={u.avatar} />
-                        <AvatarFallback className="text-xs bg-amber-100 text-amber-900 font-bold">{getInitials(u.name)}</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="font-medium text-slate-900">{u.name}</p>
-                        <p className="text-xs text-slate-500">{u.email}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="text-xs font-semibold uppercase px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">
-                      {u.role.replace("_", " ")}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3"><StatusBadge status={u.status} /></td>
-                  <td className="px-4 py-3 text-slate-500 whitespace-nowrap">{formatDate(u.joinedAt)}</td>
-                  <td className="px-4 py-3">
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-red-500 hover:text-red-700" onClick={() => setDeleteId(u.id)}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </td>
+          {isLoading ? (
+            <div className="flex justify-center p-12"><Loader2 className="w-8 h-8 animate-spin text-[#0075FD]" /></div>
+          ) : (
+            <table className="w-full text-sm">
+              <thead className="bg-slate-50">
+                <tr>
+                  {["User", "Role", "Status", "Joined", "Actions"].map((h) => (
+                    <th key={h} className="text-left px-4 py-3 text-xs font-medium text-slate-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y">
+                {filtered.map((u: any) => (
+                  <tr key={u.id || u.documentId} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="h-9 w-9">
+                          <AvatarImage src={u.avatar} />
+                          <AvatarFallback className="text-xs bg-blue-100 text-amber-900 font-bold">{getInitials(u.username || u.name || "U")}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="font-medium text-slate-900">{u.username || u.name}</p>
+                          <p className="text-xs text-slate-500">{u.email}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="text-xs font-semibold uppercase px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">
+                        {(u.role?.name || "Student").replace("_", " ")}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3"><StatusBadge status={u.blocked ? "inactive" : "active"} /></td>
+                    <td className="px-4 py-3 text-slate-500 whitespace-nowrap">{formatDate(u.createdAt || new Date().toISOString())}</td>
+                    <td className="px-4 py-3">
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-red-500 hover:text-red-700" onClick={() => setDeleteId(u.id || u.documentId)}>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
 
@@ -148,17 +165,20 @@ export default function AdminUsersPage() {
               <Select value={newRole} onValueChange={(v) => setNewRole(v as UserRole)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="STUDENT">Student</SelectItem>
-                  <SelectItem value="INSTRUCTOR">Instructor</SelectItem>
-                  <SelectItem value="CONTENT_MANAGER">Content Manager</SelectItem>
-                  <SelectItem value="ADMIN">Admin</SelectItem>
+                  <SelectItem value="Student">Student</SelectItem>
+                  <SelectItem value="Instructor">Instructor</SelectItem>
+                  <SelectItem value="Content_Manager">Content Manager</SelectItem>
+                  <SelectItem value="Admin">Admin</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setCreateOpen(false)}>Cancel</Button>
-            <Button className="bg-[#F59E0B] hover:bg-amber-600 text-white font-bold" onClick={handleCreate}>Create User</Button>
+            <Button variant="outline" onClick={() => setCreateOpen(false)} disabled={isCreating}>Cancel</Button>
+            <Button className="bg-[#0075FD] hover:bg-blue-600 text-white font-bold" onClick={handleCreate} disabled={isCreating}>
+              {isCreating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+              Create User
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

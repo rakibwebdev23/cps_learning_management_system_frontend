@@ -12,6 +12,15 @@ export interface Course {
     email?: string
   }
   lessonCount?: number
+  category?: string
+  level?: string
+  shortDescription?: string
+  isPublished?: boolean
+  studentCount?: number
+  rating?: number
+  reviewCount?: number
+  durationMinutes?: number
+  status?: string
   createdAt?: string
   updatedAt?: string
 }

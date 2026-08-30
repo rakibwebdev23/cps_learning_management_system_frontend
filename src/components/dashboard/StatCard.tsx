@@ -18,8 +18,8 @@ export default function StatCard({
   change,
   changeType = "up",
   icon: Icon,
-  iconColor = "text-[#F59E0B]",
-  iconBg = "bg-amber-50",
+  iconColor = "text-[#0075FD]",
+  iconBg = "bg-blue-50",
   description,
 }: Props) {
   return (

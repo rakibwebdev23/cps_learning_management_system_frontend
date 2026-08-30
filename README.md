@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CPS LMS - Frontend
+
+This is the official frontend application for the CPS Learning Management System (LMS), built with modern web technologies to deliver a fast, responsive, and dynamic e-learning experience.
+
+## Tech Stack
+
+- Framework: Next.js (App Router)
+- UI Library: React
+- Language: TypeScript
+- Styling: Tailwind CSS (Electric Blue #0075FD Theme)
+- State Management & Data Fetching: Redux Toolkit (RTK) & RTK Query
+- Form Handling & Validation: React Hook Form + Zod
+- UI Components: shadcn/ui (Radix UI)
+- Icons: Lucide React
+
+## Key Features
+
+- Unified Electric Blue Branding: Modern, cohesive design system across all pages and role-based portals.
+- Dynamic API Integration: Powered by RTK Query connected to Strapi v5 API endpoints.
+- Role-Based Dashboards: Dedicated interfaces for Students, Instructors, Content Managers, and Administrators.
+- Secure Authentication Flow: Token-based login with persistent user sessions and seamless logout navigation returning directly to the Home page.
+- Image Asset Safety: Built-in URL validation and fallback mechanisms for remote media assets.
+- Responsive & Accessible: Fully optimized for desktop, tablet, and mobile displays.
+
+## Project Structure
+
+The project follows a modular, feature-based architecture within the Next.js `src` directory:
+
+```text
+src/
+├── app/                  # Next.js App Router pages and layouts
+│   ├── (auth)/           # Authentication pages (Login, Register, Password Recovery)
+│   ├── (public)/         # Public pages (Home, Courses, Blog, About, Contact)
+│   ├── checkout/         # Course enrollment and checkout flow
+│   └── dashboard/        # Role-based portals
+│       ├── admin/        # Platform administration (Users, Courses, Statistics)
+│       ├── content-manager/ # Content management (Blogs, Courses, Quizzes)
+│       ├── instructor/   # Course management, lesson builder, student analytics
+│       └── student/      # Enrolled courses, learning progress, quiz results
+├── components/           # Reusable UI components
+│   ├── common/           # Shared components (Header, Footer, ProfilePage, StatusBadge)
+│   ├── course/           # Course cards, lesson players, curriculum lists
+│   ├── dashboard/        # Dashboard layout components (Sidebar, Header, StatCards)
+│   ├── home/             # Landing page sections (Hero, FeaturedCourses, InstructorShowcase)
+│   └── ui/               # Base atomic components (Button, Input, DropdownMenu, Avatar)
+├── redux/                # Global state and API services
+│   ├── api/
+│   │   ├── baseApi/      # Base RTK Query setup and headers configuration
+│   │   └── featuresApi/  # Endpoint modules (auth, course, lesson, quiz, blog)
+│   └── hooks.ts          # Typed Redux hooks (useAppDispatch, useAppSelector)
+├── lib/                  # Helper utilities (tailwind merger, date formatting, image validator)
+├── types/                # Global TypeScript interface definitions
+└── data/                 # Static fallback mock datasets
+```
+
+## API Integration & State Management
+
+This project uses RTK Query to manage client-side state and async backend communication:
+
+- baseApi.ts: Configures the base URL (`process.env.NEXT_PUBLIC_API_URL`) and authorization headers.
+- featuresApi/: Endpoints are grouped by domain (auth, course, lesson, quiz, blog).
+- Hooks: Automatic data caching, revalidation, and loading state updates via hooks like `useGetCoursesQuery()` and `useLoginMutation()`.
+
+## Authentication & Role-Based Portals
+
+The application implements JWT authentication backed by Strapi. Upon successful login, the application grants access to corresponding portals based on user role:
+
+1. Student: Enrolled courses, video lessons, quiz attempts, and learning progress.
+2. Instructor: Course creation, lesson outline management, quiz creation, and student performance tracking.
+3. Content Manager: Content quality review, blog publishing, course updates.
+4. Admin: Platform overview, user management, systemic statistics, and system settings.
+
+When a user logs out from either the sidebar or header menu, all auth tokens and API cache states are cleared, and the application immediately navigates back to the Home page (`/`).
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js (v18.17 or newer)
+- npm, yarn, pnpm, or bun
+
+### 1. Installation
+
+```bash
+git clone <repository-url>
+cd cps-lms-frontend
+npm install
+```
+
+### 2. Environment Configuration
+
+Create a `.env.local` file in the root directory:
+
+```env
+NEXT_PUBLIC_API_URL=https://cps-lms.up.railway.app/api
+```
+
+### 3. Development Server
+
+Run the development server locally:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To build and verify the application for production:
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Styling & Theme Guidelines
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The application uses Tailwind CSS with an official Electric Blue (`#0075FD`) primary brand theme.
+- Dark mode styling is integrated across key sections using standard `dark:` variant classes.
+- Standardized UI utility functions reside in `src/lib/utils.ts`.

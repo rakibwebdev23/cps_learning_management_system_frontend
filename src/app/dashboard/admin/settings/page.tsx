@@ -61,7 +61,7 @@ export default function AdminSettingsPage() {
 
         <Separator />
 
-        <Button onClick={handleSave} className="gap-2 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold">
+        <Button onClick={handleSave} className="gap-2 bg-[#0075FD] hover:bg-blue-600 text-white font-bold">
           <Save className="h-4 w-4 text-white" />{saved ? "Saved!" : "Save Settings"}
         </Button>
       </div>

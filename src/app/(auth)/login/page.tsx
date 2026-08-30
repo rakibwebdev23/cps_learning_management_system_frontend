@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -20,8 +20,10 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get("callbackUrl")
   const dispatch = useAppDispatch()
   const [login, { isLoading: isLoginLoading }] = useLoginMutation()
 
@@ -63,15 +65,19 @@ export default function LoginPage() {
           })
         )
 
-        const role = res.user.user_role
-        if (role === "admin") {
-          router.push("/dashboard/admin")
-        } else if (role === "instructor") {
-          router.push("/dashboard/instructor")
-        } else if (role === "content_manager") {
-          router.push("/dashboard/content-manager")
+        if (callbackUrl) {
+          router.push(callbackUrl)
         } else {
-          router.push("/dashboard/student")
+          const role = res.user.user_role
+          if (role === "admin") {
+            router.push("/dashboard/admin")
+          } else if (role === "instructor") {
+            router.push("/dashboard/instructor")
+          } else if (role === "content_manager") {
+            router.push("/dashboard/content-manager")
+          } else {
+            router.push("/dashboard/student")
+          }
         }
       }
     } catch (err: any) {
@@ -86,11 +92,8 @@ export default function LoginPage() {
       <div className="w-full lg:w-1/2 p-8 lg:py-10 lg:px-12 flex flex-col justify-between bg-white h-full min-h-[520px] lg:min-h-0">
         {/* Brand Header */}
         <div className="relative">
-          <Link href="/" className="inline-flex items-center gap-3 cursor-pointer">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F59E0B] text-white shadow-sm shadow-amber-200">
-              <GraduationCap className="h-6 w-6 text-white" />
-            </div>
-            <span className="font-extrabold text-xl text-slate-900 tracking-tight">{SITE_NAME}</span>
+          <Link href="/" className="inline-flex items-center cursor-pointer">
+            <Image src="/logo.png" alt="CPS LMS" width={150} height={45} className="h-10 w-auto object-contain" priority />
           </Link>
         </div>
 
@@ -121,7 +124,7 @@ export default function LoginPage() {
                   type="email"
                   {...register("email")}
                   placeholder="name@example.com"
-                  className="w-full pl-12 pr-12 py-3.5 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700"
+                  className="w-full pl-12 pr-12 py-3.5 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#0075FD] focus:border-transparent transition-all text-slate-700"
                   required
                 />
                 {isEmailValid && (
@@ -142,7 +145,7 @@ export default function LoginPage() {
                   type={showPassword ? "text" : "password"}
                   {...register("password")}
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-12 py-3.5 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent transition-all text-slate-700 tracking-wider"
+                  className="w-full pl-12 pr-12 py-3.5 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#0075FD] focus:border-transparent transition-all text-slate-700 tracking-wider"
                   required
                 />
                 <button
@@ -167,13 +170,13 @@ export default function LoginPage() {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 rounded border-slate-300 text-[#F59E0B] focus:ring-[#F59E0B] cursor-pointer"
+                  className="w-4 h-4 rounded border-slate-300 text-[#0075FD] focus:ring-[#0075FD] cursor-pointer"
                 />
                 Remember me
               </label>
               <Link
                 href="/forgot-password"
-                className="text-[#F59E0B] hover:underline text-xs font-semibold cursor-pointer"
+                className="text-[#0075FD] hover:underline text-xs font-semibold cursor-pointer"
               >
                 Forgot password?
               </Link>
@@ -184,7 +187,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoginLoading}
-                className="w-full py-3.5 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold rounded-full text-sm shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+                className="w-full py-3.5 bg-[#0075FD] hover:bg-blue-600 text-white font-bold rounded-full text-sm shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 {isLoginLoading ? (
                   <>
@@ -203,7 +206,7 @@ export default function LoginPage() {
             Don't have an account?{" "}
             <Link
               href="/register"
-              className="text-[#F59E0B] font-bold hover:underline cursor-pointer"
+              className="text-[#0075FD] font-bold hover:underline cursor-pointer"
             >
               Register
             </Link>
@@ -242,5 +245,15 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+import { Suspense } from "react"
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-[60vh]"><Loader2 className="w-8 h-8 animate-spin text-[#0075FD]" /></div>}>
+      <LoginContent />
+    </Suspense>
   )
 }

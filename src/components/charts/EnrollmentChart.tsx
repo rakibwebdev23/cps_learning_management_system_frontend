@@ -8,14 +8,14 @@ export default function EnrollmentChart() {
     <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
       <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
         <h3 className="text-sm font-bold text-slate-900">Learning Progress & Hours</h3>
-        <span className="text-xs font-semibold text-[#F59E0B] bg-amber-50 px-2.5 py-1 rounded-lg">This Month</span>
+        <span className="text-xs font-semibold text-[#0075FD] bg-blue-50 px-2.5 py-1 rounded-lg">This Month</span>
       </div>
       <ResponsiveContainer width="100%" height={240}>
         <AreaChart data={enrollmentGrowth} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
           <defs>
             <linearGradient id="enrollGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#F59E0B" stopOpacity={0.3} />
-              <stop offset="95%" stopColor="#F59E0B" stopOpacity={0.01} />
+              <stop offset="5%" stopColor="#0075FD" stopOpacity={0.3} />
+              <stop offset="95%" stopColor="#0075FD" stopOpacity={0.01} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" vertical={false} />
@@ -30,7 +30,7 @@ export default function EnrollmentChart() {
               fontWeight: 600,
             }}
           />
-          <Area type="monotone" dataKey="enrollments" stroke="#F59E0B" strokeWidth={3} fill="url(#enrollGrad)" />
+          <Area type="monotone" dataKey="enrollments" stroke="#0075FD" strokeWidth={3} fill="url(#enrollGrad)" />
         </AreaChart>
       </ResponsiveContainer>
     </div>

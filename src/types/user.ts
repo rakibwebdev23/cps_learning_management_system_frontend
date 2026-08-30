@@ -2,14 +2,16 @@ export type UserRole = "ADMIN" | "CONTENT_MANAGER" | "INSTRUCTOR" | "STUDENT"
 export type UserStatus = "active" | "inactive" | "suspended"
 
 export interface User {
-  id: string
-  name: string
+  id: string | number
+  documentId?: string
+  name?: string
+  username?: string
   email: string
   phone?: string
   avatar?: string
-  role: UserRole
-  status: UserStatus
+  role?: any
+  status?: string
   bio?: string
-  joinedAt: string
+  joinedAt?: string
   lastActive?: string
 }

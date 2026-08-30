@@ -23,13 +23,13 @@ const features = [
     icon: Award,
     title: "Certificate",
     description: "Earn recognized certificates upon course completion.",
-    color: "bg-amber-50 text-amber-600",
+    color: "bg-blue-50 text-[#0075FD]",
   },
 ]
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-16 bg-slate-50">
+    <section className="py-16 bg-white border-b border-slate-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Title */}

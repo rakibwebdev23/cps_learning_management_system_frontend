@@ -14,7 +14,6 @@ export const courseApi = baseApi.injectEndpoints({
         url: "/courses",
         method: "GET",
         params: {
-          populate: "*",
           ...(params?.page && { "pagination[page]": params.page }),
           ...(params?.pageSize && { "pagination[pageSize]": params.pageSize }),
           ...(params?.search && { "filters[title][$contains]": params.search }),

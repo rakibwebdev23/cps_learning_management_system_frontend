@@ -49,9 +49,9 @@ export default function CalendarWidget() {
               onClick={() => setSelectedDay(day)}
               className={`h-8 w-8 rounded-full flex items-center justify-center font-medium transition-all cursor-pointer ${
                 isSelected
-                  ? "bg-[#F59E0B] text-white font-extrabold shadow-md shadow-amber-200"
+                  ? "bg-[#0075FD] text-white font-extrabold shadow-md shadow-blue-200"
                   : isDeadline
-                  ? "bg-amber-50 text-[#F59E0B] font-semibold"
+                  ? "bg-blue-50 text-[#0075FD] font-semibold"
                   : "text-slate-700 hover:bg-slate-100"
               }`}
             >

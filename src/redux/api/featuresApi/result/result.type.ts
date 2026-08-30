@@ -13,8 +13,16 @@ export interface QuizResult {
   }
   quiz?: {
     id: number | string
+    documentId?: string
     title?: string
+    course?: {
+      id: number | string
+      documentId?: string
+      title?: string
+    }
   }
+  isPassed?: boolean
+  status?: string
   createdAt?: string
 }
 

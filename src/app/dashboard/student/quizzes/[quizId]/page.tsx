@@ -2,7 +2,7 @@
 import { use, useState } from "react"
 import { useRouter } from "next/navigation"
 import { notFound } from "next/navigation"
-import { Timer, ChevronLeft, ChevronRight, AlertCircle } from "lucide-react"
+import { Timer, ChevronLeft, ChevronRight, AlertCircle, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -10,35 +10,66 @@ import { Label } from "@/components/ui/label"
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription,
 } from "@/components/ui/dialog"
-import { getQuizById } from "@/data/quizzes"
-import { getQuestionsByQuiz } from "@/data/quizzes"
+import { useGetQuizByIdQuery } from "@/redux/api/featuresApi/quiz/quiz.api"
+import { useSubmitQuizResultMutation } from "@/redux/api/featuresApi/result/result.api"
 
 export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: string }> }) {
   const { quizId } = use(params)
-  const quiz = getQuizById(quizId)
-  if (!quiz) notFound()
+  
+  const { data: quizData, isLoading: isQuizLoading } = useGetQuizByIdQuery({ id: quizId })
+  const quiz = quizData?.data
 
-  const questions = getQuestionsByQuiz(quizId)
+  const [submitQuiz, { isLoading: isSubmitting }] = useSubmitQuizResultMutation()
+
   const router = useRouter()
   const [current, setCurrent] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [confirmOpen, setConfirmOpen] = useState(false)
 
+  if (isQuizLoading) return <div className="p-12 flex justify-center"><Loader2 className="w-8 h-8 animate-spin text-[#0075FD]" /></div>
+  if (!quiz) return <div className="p-12 text-center">Quiz not found.</div>
+
+  const questions = quiz.questions || []
   const question = questions[current]
-  const progress = ((current + 1) / questions.length) * 100
+  const progress = ((current + 1) / (questions.length || 1)) * 100
   const selectedOption = answers[question?.id ?? ""]
 
   const handleSelect = (optionId: string) => {
     setAnswers((prev) => ({ ...prev, [question.id]: optionId }))
   }
 
-  const handleSubmit = () => {
-    console.log("Quiz answers:", answers)
-    setConfirmOpen(false)
-    router.push("/dashboard/student/results")
+  const handleSubmit = async () => {
+    // Calculate score (assuming options have isCorrect or similar, or just randomly for now if not available)
+    let correctCount = 0
+    questions.forEach((q: any) => {
+      const selected = answers[q.id]
+      const correctOpt = q.options?.find((opt: any) => opt.isCorrect)
+      if (correctOpt && String(correctOpt.id) === String(selected)) {
+        correctCount++
+      }
+    })
+
+    const percentage = questions.length > 0 ? (correctCount / questions.length) * 100 : 0
+    
+    try {
+      await submitQuiz({
+        data: {
+          quiz: quiz.documentId || quiz.id,
+          score: correctCount,
+          total_questions: questions.length,
+          percentage: percentage
+        }
+      }).unwrap()
+      
+      setConfirmOpen(false)
+      router.push("/dashboard/student/results")
+    } catch (error) {
+      console.error("Failed to submit quiz:", error)
+      alert("Failed to submit quiz. Please try again.")
+    }
   }
 
-  if (!question) return null
+  if (!question) return <div className="p-12 text-center">No questions found in this quiz.</div>
 
   return (
     <div className="w-full">
@@ -50,7 +81,7 @@ export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: s
         </div>
         <div className="flex items-center gap-2 text-sm text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full">
           <Timer className="h-4 w-4" />
-          <span className="font-mono font-semibold">{quiz.timeLimitMinutes}:00</span>
+          <span className="font-mono font-semibold">{quiz.timeLimitMinutes || 30}:00</span>
         </div>
       </div>
 
@@ -60,17 +91,17 @@ export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: s
       {/* question card */}
       <div className="rounded-xl border bg-white p-6 mb-6 shadow-sm">
         <p className="text-slate-900 font-semibold text-base mb-6 leading-relaxed">
-          {question.text}
+          {question.text || question.questionText || "Question text missing"}
         </p>
 
         <RadioGroup value={selectedOption} onValueChange={handleSelect} className="space-y-3">
-          {question.options.map((opt) => (
+          {question.options?.map((opt: any) => (
             <label
               key={opt.id}
-              className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedOption === opt.id ? "border-[#F59E0B] bg-amber-50" : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"}`}
+              className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${String(selectedOption) === String(opt.id) ? "border-[#0075FD] bg-blue-50" : "border-slate-200 hover:border-slate-300 hover:bg-slate-50"}`}
             >
-              <RadioGroupItem value={opt.id} id={opt.id} />
-              <Label htmlFor={opt.id} className="cursor-pointer text-sm">{opt.text}</Label>
+              <RadioGroupItem value={String(opt.id)} id={String(opt.id)} />
+              <Label htmlFor={String(opt.id)} className="cursor-pointer text-sm">{opt.text || opt.optionText}</Label>
             </label>
           ))}
         </RadioGroup>
@@ -83,7 +114,7 @@ export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: s
         </Button>
         <span className="text-xs text-slate-500">{Object.keys(answers).length}/{questions.length} answered</span>
         {current < questions.length - 1 ? (
-          <Button onClick={() => setCurrent((c) => c + 1)} className="gap-2 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold">
+          <Button onClick={() => setCurrent((c) => c + 1)} className="gap-2 bg-[#0075FD] hover:bg-blue-600 text-white font-bold">
             Next <ChevronRight className="h-4 w-4 text-white" />
           </Button>
         ) : (
@@ -98,8 +129,8 @@ export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: s
         <DialogContent className="max-w-sm">
           <DialogHeader>
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-100">
-                <AlertCircle className="h-5 w-5 text-amber-600" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
+                <AlertCircle className="h-5 w-5 text-[#0075FD]" />
               </div>
               <DialogTitle>Submit Quiz?</DialogTitle>
             </div>
@@ -108,8 +139,11 @@ export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: s
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="gap-2">
-            <Button variant="outline" onClick={() => setConfirmOpen(false)}>Review Answers</Button>
-            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold" onClick={handleSubmit}>Submit Now</Button>
+            <Button variant="outline" onClick={() => setConfirmOpen(false)} disabled={isSubmitting}>Review Answers</Button>
+            <Button className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold gap-2" onClick={handleSubmit} disabled={isSubmitting}>
+              {isSubmitting && <Loader2 className="w-4 h-4 animate-spin text-white" />}
+              Submit Now
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

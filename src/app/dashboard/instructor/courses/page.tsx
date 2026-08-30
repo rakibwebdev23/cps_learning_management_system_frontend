@@ -9,8 +9,7 @@ import PageHeader from "@/components/common/PageHeader"
 import ConfirmDialog from "@/components/common/ConfirmDialog"
 import StatusBadge from "@/components/common/StatusBadge"
 import { useGetCoursesQuery, useDeleteCourseMutation } from "@/redux/api/featuresApi/course/course.api"
-import { getCoursesByInstructor } from "@/data/courses"
-import { formatDate } from "@/lib/utils"
+import { formatDate, getValidImageUrl } from "@/lib/utils"
 
 export default function InstructorCoursesPage() {
   const [search, setSearch] = useState("")
@@ -20,19 +19,19 @@ export default function InstructorCoursesPage() {
   const [deleteCourse, { isLoading: isDeleting }] = useDeleteCourseMutation()
 
   const allCourses = useMemo(() => {
-    if (apiData?.data && apiData.data.length > 0) {
+    if (apiData?.data) {
       return apiData.data.map((c) => ({
         id: String(c.documentId || c.id),
         title: c.title,
         thumbnail: c.thumbnail_url || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
-        level: "intermediate",
-        studentCount: 140,
+        level: c.level || "intermediate",
+        studentCount: c.studentCount || 140,
         lessonCount: c.lessonCount || 8,
-        status: "published" as const,
+        status: c.status || "published",
         createdAt: c.createdAt || new Date().toISOString(),
       }))
     }
-    return getCoursesByInstructor("u3")
+    return []
   }, [apiData])
 
   const filtered = useMemo(() => {
@@ -56,7 +55,7 @@ export default function InstructorCoursesPage() {
         title="My Courses"
         description="Manage all your course content and students."
         actions={
-          <Button className="gap-2 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold cursor-pointer" asChild>
+          <Button className="gap-2 bg-[#0075FD] hover:bg-blue-600 text-white font-bold cursor-pointer" asChild>
             <Link href="/dashboard/instructor/courses/create"><Plus className="h-4 w-4 text-white" />Create Course</Link>
           </Button>
         }
@@ -74,7 +73,7 @@ export default function InstructorCoursesPage() {
       <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
         {isLoading ? (
           <div className="flex items-center justify-center py-16">
-            <Loader2 className="w-8 h-8 animate-spin text-[#F59E0B]" />
+            <Loader2 className="w-8 h-8 animate-spin text-[#0075FD]" />
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -92,7 +91,7 @@ export default function InstructorCoursesPage() {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <div className="relative h-10 w-16 rounded-lg overflow-hidden shrink-0">
-                          <Image src={course.thumbnail} alt={course.title} fill className="object-cover" sizes="64px" />
+                          <Image src={getValidImageUrl(course.thumbnail)} alt={course.title} fill className="object-cover" sizes="64px" />
                         </div>
                         <div className="min-w-0">
                           <p className="font-medium text-slate-900 line-clamp-1">{course.title}</p>

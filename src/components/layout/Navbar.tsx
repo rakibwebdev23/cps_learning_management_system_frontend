@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -37,7 +38,6 @@ export default function Navbar() {
     { label: "Courses", href: "/courses" },
     { label: "Blog", href: "/blog" },
     { label: "About", href: "/about" },
-    { label: "Pricing", href: "/pricing" },
     { label: "Contact", href: "/contact" },
   ]
 
@@ -54,9 +54,8 @@ export default function Navbar() {
         <nav className="bg-white/95 backdrop-blur-md rounded-2xl py-3 px-4 md:py-4 md:px-6 shadow-xl border border-slate-100 relative">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 text-xl font-extrabold text-slate-900 tracking-tight cursor-pointer">
-              <span className="text-[#F59E0B]">CPS</span>
-              <span>LMS</span>
+            <Link href="/" className="flex items-center gap-2 cursor-pointer">
+              <Image src="/logo.png" alt="CPS LMS" width={140} height={40} className="h-9 w-auto object-contain" priority />
             </Link>
 
             {/* Desktop Nav Links */}
@@ -70,8 +69,8 @@ export default function Navbar() {
                     className={cn(
                       "text-sm font-medium transition-colors duration-200 cursor-pointer py-1",
                       isActive
-                        ? "text-[#F59E0B] font-bold"
-                        : "text-slate-700 hover:text-[#F59E0B]"
+                        ? "text-[#0075FD] font-bold"
+                        : "text-slate-700 hover:text-[#0075FD]"
                     )}
                   >
                     {link.label}
@@ -84,17 +83,17 @@ export default function Navbar() {
             <div className="hidden md:flex items-center gap-4">
               <Link
                 href="/login"
-                className="text-sm font-medium text-slate-700 hover:text-[#F59E0B] transition-colors cursor-pointer px-3 py-2"
+                className="text-sm font-medium text-slate-700 hover:text-[#0075FD] transition-colors cursor-pointer px-3 py-2"
               >
                 Log In
               </Link>
 
               <Link
                 href="/register"
-                className="group relative border-2 border-[#F59E0B] text-white bg-transparent rounded-full px-6 py-2 text-sm font-bold transition-all duration-300 cursor-pointer overflow-hidden z-10 shadow-md shadow-amber-500/10 hover:shadow-amber-500/25 inline-flex items-center justify-center"
+                className="group relative border-2 border-[#0075FD] text-white bg-transparent rounded-full px-6 py-2 text-sm font-bold transition-all duration-300 cursor-pointer overflow-hidden z-10 shadow-md shadow-blue-500/10 hover:shadow-blue-500/25 inline-flex items-center justify-center"
               >
                 {/* Default background color */}
-                <span className="absolute inset-0 bg-[#F59E0B] -z-20" />
+                <span className="absolute inset-0 bg-[#0075FD] -z-20" />
 
                 {/* Smooth sliding background fill */}
                 <span className="absolute inset-0 bg-slate-900 translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] -z-10" />
@@ -109,7 +108,7 @@ export default function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden text-slate-700 hover:text-[#F59E0B] transition-colors cursor-pointer"
+              className="md:hidden text-slate-700 hover:text-[#0075FD] transition-colors cursor-pointer"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -137,8 +136,8 @@ export default function Navbar() {
                   className={cn(
                     "text-sm font-medium py-2 px-3 rounded-lg transition-colors cursor-pointer",
                     pathname === link.href
-                      ? "text-[#F59E0B] bg-amber-50 font-bold"
-                      : "text-slate-700 hover:bg-slate-50 hover:text-[#F59E0B]"
+                      ? "text-[#0075FD] bg-blue-50 font-bold"
+                      : "text-slate-700 hover:bg-slate-50 hover:text-[#0075FD]"
                   )}
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -156,10 +155,10 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/register"
-                  className="group relative w-full border-2 border-[#F59E0B] text-white bg-transparent rounded-full py-2.5 text-sm font-bold transition-all duration-300 cursor-pointer overflow-hidden z-10 text-center inline-flex items-center justify-center"
+                  className="group relative w-full border-2 border-[#0075FD] text-white bg-transparent rounded-full py-2.5 text-sm font-bold transition-all duration-300 cursor-pointer overflow-hidden z-10 text-center inline-flex items-center justify-center"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <span className="absolute inset-0 bg-[#F59E0B] -z-20" />
+                  <span className="absolute inset-0 bg-[#0075FD] -z-20" />
                   <span className="absolute inset-0 bg-slate-900 translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] -z-10" />
                   <span className="relative z-20 text-white">Get Started</span>
                 </Link>

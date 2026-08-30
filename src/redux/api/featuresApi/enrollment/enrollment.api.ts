@@ -3,6 +3,7 @@ import { EnrollmentListResponse, EnrollmentResponse, CreateEnrollmentPayload } f
 
 export interface EnrollmentQueryParams {
   studentId?: string | number
+  courseId?: string | number
 }
 
 export const enrollmentApi = baseApi.injectEndpoints({
@@ -14,6 +15,7 @@ export const enrollmentApi = baseApi.injectEndpoints({
         params: {
           populate: "*",
           ...(params?.studentId && { "filters[student][id][$eq]": params.studentId }),
+          ...(params?.courseId && { "filters[course][id][$eq]": params.courseId }),
         },
       }),
       providesTags: ["Enrollment"],

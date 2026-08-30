@@ -25,12 +25,12 @@ export default function ForgotPasswordPage() {
     <div className="rounded-xl border bg-white dark:bg-slate-900 shadow-sm p-8">
       {sent ? (
         <div className="text-center">
-          <div className="h-16 w-16 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-4">
-            <Mail className="h-8 w-8 text-amber-600" />
+          <div className="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+            <Mail className="h-8 w-8 text-[#0075FD]" />
           </div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Check Your Email</h2>
           <p className="text-sm text-slate-500 mb-6">We've sent a password reset link to your email address. It expires in 30 minutes.</p>
-          <Button asChild className="w-full bg-[#F59E0B] hover:bg-amber-600 text-white font-bold"><Link href="/login">Back to Login</Link></Button>
+          <Button asChild className="w-full bg-[#0075FD] hover:bg-blue-600 text-white font-bold"><Link href="/login">Back to Login</Link></Button>
         </div>
       ) : (
         <>
@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
               <Input id="email" type="email" placeholder="you@example.com" {...register("email")} />
               {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
             </div>
-            <Button type="submit" className="w-full bg-[#F59E0B] hover:bg-amber-600 text-white font-bold" disabled={isSubmitting}>
+            <Button type="submit" className="w-full bg-[#0075FD] hover:bg-blue-600 text-white font-bold" disabled={isSubmitting}>
               {isSubmitting ? "Sending..." : "Send Reset Link"}
             </Button>
           </form>

@@ -34,7 +34,7 @@ export default function ResetPasswordPage() {
           </div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Password Reset!</h2>
           <p className="text-sm text-slate-500 mb-6">Your password has been updated successfully.</p>
-          <Button asChild className="w-full bg-[#F59E0B] hover:bg-amber-600 text-white font-bold"><Link href="/login">Sign In Now</Link></Button>
+          <Button asChild className="w-full bg-[#0075FD] hover:bg-blue-600 text-white font-bold"><Link href="/login">Sign In Now</Link></Button>
         </div>
       ) : (
         <>
@@ -58,7 +58,7 @@ export default function ResetPasswordPage() {
               <Input id="confirmPassword" type={showPw ? "text" : "password"} placeholder="Re-enter password" {...register("confirmPassword")} />
               {errors.confirmPassword && <p className="text-xs text-red-500">{errors.confirmPassword.message}</p>}
             </div>
-            <Button type="submit" className="w-full bg-[#F59E0B] hover:bg-amber-600 text-white font-bold" disabled={isSubmitting}>
+            <Button type="submit" className="w-full bg-[#0075FD] hover:bg-blue-600 text-white font-bold" disabled={isSubmitting}>
               {isSubmitting ? "Updating..." : "Update Password"}
             </Button>
           </form>

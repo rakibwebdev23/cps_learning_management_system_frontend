@@ -12,14 +12,14 @@ export default function Testimonials() {
     <section className="py-20 bg-slate-50 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-sm font-medium text-amber-600 mb-2">Student Stories</p>
+          <p className="text-sm font-medium text-[#0075FD] mb-2 uppercase tracking-wider">Student Stories</p>
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white">What Our Learners Say</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.map((t) => (
             <div key={t.name} className="bg-white dark:bg-slate-900 rounded-xl border p-6 hover:shadow-md transition-shadow">
               <div className="flex gap-0.5 mb-4">
-                {[...Array(t.rating)].map((_, i) => <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />)}
+                {[...Array(t.rating)].map((_, i) => <Star key={i} className="h-4 w-4 fill-[#0075FD] text-[#0075FD]" />)}
               </div>
               <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">&quot;{t.text}&quot;</p>
               <div className="flex items-center gap-3">

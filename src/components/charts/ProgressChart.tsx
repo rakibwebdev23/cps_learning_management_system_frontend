@@ -23,7 +23,7 @@ export default function ProgressChart() {
               fontSize: "12px",
             }}
           />
-          <Bar dataKey="minutes" fill="#F59E0B" radius={[6, 6, 0, 0]} />
+          <Bar dataKey="minutes" fill="#0075FD" radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

@@ -4,13 +4,19 @@ export interface Enrollment {
   status: "active" | "completed" | "dropped"
   enrolledAt?: string
   completedAt?: string
+  studentName?: string
+  progress?: number
+  completedLessons?: number
   student?: {
     id: number | string
+    documentId?: string
     username?: string
+    name?: string
     email?: string
   }
   course?: {
     id: number | string
+    documentId?: string
     title?: string
     description?: string
     thumbnail_url?: string

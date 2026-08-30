@@ -1,10 +1,10 @@
 "use client"
-import { use } from "react"
+import { use, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useRouter } from "next/navigation"
-import { Save } from "lucide-react"
+import { Save, Loader2 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -12,32 +12,51 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import PageHeader from "@/components/common/PageHeader"
-import { getBlogById } from "@/data/blogs"
 import { BLOG_CATEGORIES } from "@/lib/constants"
+import { useGetBlogPostByIdQuery, useUpdateBlogPostMutation } from "@/redux/api/featuresApi/blog/blog.api"
 
 const schema = z.object({
   title: z.string().min(5),
-  excerpt: z.string().min(10),
+  excerpt: z.string().optional(),
   content: z.string().min(20),
 })
 type FormData = z.infer<typeof schema>
 
 export default function EditBlogPage({ params }: { params: Promise<{ blogId: string }> }) {
   const { blogId } = use(params)
-  const blog = getBlogById(blogId)
   const router = useRouter()
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { data: blogData, isLoading, error } = useGetBlogPostByIdQuery({ id: blogId })
+  const blog = blogData?.data
+  
+  const [updateBlog, { isLoading: isUpdating }] = useUpdateBlogPostMutation()
+
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { title: blog?.title, excerpt: blog?.excerpt, content: blog?.content },
   })
 
-  const onSubmit = (data: FormData) => {
-    console.log("Edit blog:", data)
-    router.push("/dashboard/content-manager/blogs")
+  useEffect(() => {
+    if (blog) {
+      reset({
+        title: blog.title,
+        excerpt: blog.excerpt || "",
+        content: blog.content,
+      })
+    }
+  }, [blog, reset])
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      await updateBlog({ id: blogId, payload: { data: { title: data.title, excerpt: data.excerpt, content: data.content } } }).unwrap()
+      router.push("/dashboard/content-manager/blogs")
+    } catch (err) {
+      console.error("Failed to update blog:", err)
+      alert("Failed to update blog post")
+    }
   }
 
-  if (!blog) return <div className="p-6">Blog not found.</div>
+  if (isLoading) return <div className="p-12 flex justify-center"><Loader2 className="w-8 h-8 animate-spin text-[#0075FD]" /></div>
+  if (error || !blog) return <div className="p-6">Blog not found.</div>
 
   return (
     <div>
@@ -55,9 +74,13 @@ export default function EditBlogPage({ params }: { params: Promise<{ blogId: str
         <div className="space-y-1.5">
           <Label>Content</Label>
           <Textarea rows={10} {...register("content")} />
+          {errors.content && <p className="text-xs text-red-500">{errors.content.message}</p>}
         </div>
         <Separator />
-        <Button type="submit" className="gap-2 bg-[#F59E0B] hover:bg-amber-600 text-white font-bold"><Save className="h-4 w-4 text-white" />Save Changes</Button>
+        <Button type="submit" disabled={isUpdating} className="gap-2 bg-[#0075FD] hover:bg-blue-600 text-white font-bold">
+          {isUpdating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4 text-white" />}
+          {isUpdating ? "Saving..." : "Save Changes"}
+        </Button>
       </form>
     </div>
   )
