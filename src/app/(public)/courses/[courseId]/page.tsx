@@ -27,7 +27,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ courseI
     return {
       id: String(courseApiResult.documentId || courseApiResult.id),
       title: courseApiResult.title,
-      category: "Web Development", // Defaulting as backend might lack category yet
+      category: "Web Development", // defaulting as backend might lack category yet
       shortDescription: courseApiResult.description || "Detailed course overview...",
       rating: 4.8,
       reviewCount: 124,
@@ -38,7 +38,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ courseI
       instructorAvatar: null,
       thumbnail: courseApiResult.thumbnail_url || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80",
       price: courseApiResult.price || 49,
-      discountPrice: null, // Hardcoded for now
+      discountPrice: null, // hardcoded for now
       learningOutcomes: ["Build full-stack applications", "Master modern web development", "Deploy to production"],
       requirements: ["Basic understanding of HTML, CSS, and JavaScript", "A computer with internet access"],
     }
@@ -103,7 +103,6 @@ export default function CourseDetailPage({ params }: { params: Promise<{ courseI
 
   return (
     <div className="bg-white min-h-screen">
-      {/* hero */}
       <div className="bg-white border-b border-slate-100 text-slate-900 pt-20 pb-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -126,7 +125,6 @@ export default function CourseDetailPage({ params }: { params: Promise<{ courseI
               </div>
             </div>
 
-            {/* purchase card */}
             <div className="lg:col-span-1">
               <div className="bg-white border border-slate-200 text-slate-900 overflow-hidden sticky top-4">
                 <div className="relative h-44">
@@ -154,11 +152,9 @@ export default function CourseDetailPage({ params }: { params: Promise<{ courseI
         </div>
       </div>
 
-      {/* body */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
-            {/* what you'll learn */}
             <section className="border border-slate-200 p-6 bg-white">
               <h2 className="text-xl font-bold text-black mb-4">What You'll Learn</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -171,7 +167,6 @@ export default function CourseDetailPage({ params }: { params: Promise<{ courseI
               </div>
             </section>
 
-            {/* curriculum */}
             <section>
               <h2 className="text-xl font-bold text-black mb-4">Course Curriculum</h2>
               <div className="border border-slate-200 overflow-hidden divide-y divide-slate-100 bg-white">
@@ -200,7 +195,6 @@ export default function CourseDetailPage({ params }: { params: Promise<{ courseI
               </div>
             </section>
 
-            {/* requirements */}
             <section className="border border-slate-200 p-6 bg-white">
               <h2 className="text-xl font-bold text-black mb-4">Requirements</h2>
               <ul className="space-y-2">
@@ -213,7 +207,6 @@ export default function CourseDetailPage({ params }: { params: Promise<{ courseI
             </section>
           </div>
 
-          {/* sidebar */}
           <div className="space-y-6">
             <div className="border border-slate-200 p-5 bg-white">
               <h3 className="font-bold text-black mb-3 text-base">Course Includes</h3>
@@ -227,7 +220,6 @@ export default function CourseDetailPage({ params }: { params: Promise<{ courseI
           </div>
         </div>
 
-        {/* related courses */}
         {related.length > 0 && (
           <div className="mt-12">
             <h2 className="text-2xl font-bold text-slate-900 mb-6">Related Courses</h2>

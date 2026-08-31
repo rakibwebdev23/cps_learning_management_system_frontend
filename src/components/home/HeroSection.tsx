@@ -15,25 +15,25 @@ export default function HeroSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-          {/* Left Column Text */}
+          {/* left column text */}
           <div className="lg:col-span-7 space-y-6">
-            {/* Pill Eyebrow */}
+            {/* pill eyebrow */}
             <div className=" text-[#0075FD] text-xs font-bold">
               The Best Learning Platform
             </div>
 
-            {/* Main Headline */}
+            {/* main headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-extrabold text-slate-900 tracking-tight leading-[1.12]">
               Learn Without Limits. <br className="hidden sm:inline" />
               <span className="text-[#0075FD]">Achieve Anything.</span>
             </h1>
 
-            {/* Description */}
+            {/* description */}
             <p className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
               Join thousands of learners around the world and access high-quality courses from expert instructors.
             </p>
 
-            {/* Dual CTAs */}
+            {/* dual ctas */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <Link
                 href="/courses"
@@ -52,7 +52,7 @@ export default function HeroSection() {
               </Button>
             </div>
 
-            {/* Social Proof */}
+            {/* social proof */}
             <div className="flex items-center gap-4 pt-4 border-t border-slate-100">
               <div className="flex -space-x-2">
                 {[
@@ -72,7 +72,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column Image with Floating Badges */}
+          {/* right column image with floating badges */}
           <div className="lg:col-span-5 relative flex justify-center">
             <div className="relative w-full max-w-md lg:max-w-none aspect-[4/4.2] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-100 via-slate-50 to-white p-4">
               <img
@@ -81,7 +81,7 @@ export default function HeroSection() {
                 className="w-full h-full object-cover rounded-2xl"
               />
 
-              {/* Floating Badge Top Right */}
+              {/* floating badge top right */}
               <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-xl shadow-lg border border-slate-100 flex items-center gap-2.5">
                 <div className="p-2 rounded-lg bg-blue-50 text-[#0075FD]">
                   <BookOpen className="h-4 w-4" />
@@ -92,7 +92,7 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* Floating Badge Middle Left */}
+              {/* floating badge middle left */}
               <div className="absolute top-28 -left-4 bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-xl shadow-lg border border-slate-100 flex items-center gap-2.5">
                 <div className="p-2 rounded-lg bg-blue-50 text-[#0075FD]">
                   <Users className="h-4 w-4" />
@@ -103,7 +103,7 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* Floating Badge Lower Right */}
+              {/* floating badge lower right */}
               <div className="absolute bottom-16 right-4 bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-xl shadow-lg border border-slate-100 flex items-center gap-2.5">
                 <div className="p-2 rounded-lg bg-emerald-50 text-emerald-600">
                   <Award className="h-4 w-4" />
@@ -114,7 +114,7 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* Floating Badge Bottom Left */}
+              {/* floating badge bottom left */}
               <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-md px-3.5 py-2.5 rounded-xl shadow-lg border border-slate-100 flex items-center gap-2.5">
                 <div className="p-2 rounded-lg bg-blue-50 text-[#0075FD]">
                   <Headphones className="h-4 w-4" />
@@ -129,7 +129,6 @@ export default function HeroSection() {
 
         </div>
 
-        {/* Stats Row Bar Below Hero */}
         <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {heroStats.map((stat, idx) => {
             const Icon = stat.icon

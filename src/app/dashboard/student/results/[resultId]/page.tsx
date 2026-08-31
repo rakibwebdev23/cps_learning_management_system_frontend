@@ -37,7 +37,6 @@ export default function ResultDetailPage({ params }: { params: Promise<{ resultI
         breadcrumbs={[{ label: "Results", href: "/dashboard/student/results" }, { label: result.quiz?.title || "Quiz" }]}
       />
 
-      {/* score card */}
       <div className={`rounded-2xl border p-6 mb-6 ${isPassed ? "bg-emerald-50/70 border-emerald-200" : "bg-red-50/70 border-red-200"}`}>
         <div className="flex flex-col sm:flex-row items-center gap-6">
           <div className={`flex h-24 w-24 items-center justify-center rounded-full text-3xl font-extrabold ${isPassed ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}>
@@ -66,7 +65,7 @@ export default function ResultDetailPage({ params }: { params: Promise<{ resultI
         </div>
       </div>
 
-      {/* question review - usually needs answers, but backend doesn't store them yet. Using questions from quiz as a placeholder */}
+      {/* question review - usually needs answers, but backend doesn't store them yet. using questions from quiz as a placeholder */}
       {questions.length > 0 && (
         <div className="rounded-2xl border border-slate-200/80 bg-white overflow-hidden mb-6 shadow-sm">
           <div className="px-5 py-4 border-b border-slate-100 bg-slate-50">

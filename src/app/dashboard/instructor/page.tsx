@@ -30,7 +30,6 @@ export default function InstructorDashboard() {
         }
       />
 
-      {/* stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatCard title="Total Courses" value={totalCourses} icon={BookOpen} iconColor="text-[#0075FD]" iconBg="bg-blue-50" />
         <StatCard title="Total Students" value={totalStudents.toLocaleString()} icon={Users} iconColor="text-[#0075FD]" iconBg="bg-blue-50" change="+12 this month" changeType="up" />
@@ -38,13 +37,11 @@ export default function InstructorDashboard() {
         <StatCard title="Avg. Completion" value="68%" icon={TrendingUp} iconColor="text-[#0075FD]" iconBg="bg-blue-50" />
       </div>
 
-      {/* charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <ProgressChart />
         <QuizPerformanceChart />
       </div>
 
-      {/* course performance table */}
       <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-md shadow-slate-200/50">
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white">
           <h2 className="font-bold text-slate-900 text-base">Course Performance</h2>

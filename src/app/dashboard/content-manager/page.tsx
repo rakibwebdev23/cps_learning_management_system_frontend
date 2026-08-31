@@ -46,7 +46,6 @@ export default function ContentManagerDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* recent courses */}
         <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-md shadow-slate-200/50">
           <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white">
             <h2 className="font-bold text-slate-900 text-base">Recent Courses</h2>
@@ -72,7 +71,6 @@ export default function ContentManagerDashboard() {
           </div>
         </div>
 
-        {/* recent blogs */}
         <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-md shadow-slate-200/50">
           <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white">
             <h2 className="font-bold text-slate-900 text-base">Recent Blogs</h2>

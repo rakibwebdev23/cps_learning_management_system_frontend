@@ -8,7 +8,6 @@ export default function AboutPage() {
   const instructors = users.filter((u) => u.role === "INSTRUCTOR")
   return (
     <div className="bg-white min-h-screen">
-      {/* hero */}
       <div className="bg-white border-b border-slate-100 text-slate-900 pt-20 pb-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <Image src="/logo.png" alt="CPS LMS" width={180} height={60} className="h-16 w-auto mx-auto mb-4 object-contain" priority />
@@ -19,7 +18,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* mission */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {[
@@ -40,7 +38,6 @@ export default function AboutPage() {
           })}
         </div>
 
-        {/* team */}
         <div className="text-center mb-10">
           <h2 className="text-2xl font-extrabold text-black">Meet Our Instructors</h2>
           <p className="text-gray-700 font-medium mt-2">The experts driving learning outcomes on our platform.</p>

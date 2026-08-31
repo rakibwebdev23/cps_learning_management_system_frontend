@@ -32,7 +32,7 @@ export default function DashboardSidebar({ role }: SidebarProps) {
     window.location.href = "/"
   }
 
-  // Dynamic menu per role
+  // dynamic menu per role
   const getNavItems = () => {
     switch (role) {
       case "INSTRUCTOR":
@@ -89,14 +89,12 @@ export default function DashboardSidebar({ role }: SidebarProps) {
     <aside className="fixed left-0 top-0 z-40 h-screen w-64 bg-white text-slate-700 flex flex-col justify-between border-r border-slate-200">
 
       <div>
-        {/* Brand Header - exact h-16 alignment with top header */}
         <div className="flex h-16 items-center px-6 border-b border-slate-200">
           <Link href="/">
             <Image src="/logo.png" alt="CPS LMS" width={140} height={40} className="h-9 w-auto object-contain" priority />
           </Link>
         </div>
 
-        {/* Nav Items */}
         <nav className="space-y-1 p-4">
           {navItems.map((item) => {
             const Icon = item.icon
@@ -133,7 +131,6 @@ export default function DashboardSidebar({ role }: SidebarProps) {
         </nav>
       </div>
 
-      {/* Logout Footer */}
       <div className="p-4 border-t border-slate-100">
         <button
           onClick={handleLogout}

@@ -33,7 +33,6 @@ function SuccessContent() {
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Payment Successful!</h1>
         <p className="text-slate-500 text-sm mb-6">Congratulations! You now have full access to your course.</p>
 
-        {/* course preview */}
         {course && (
           <div className="flex items-center gap-4 bg-slate-50 dark:bg-slate-800 rounded-xl p-4 mb-6 text-left">
             <div className="relative h-14 w-20 rounded-lg overflow-hidden shrink-0 bg-slate-100">

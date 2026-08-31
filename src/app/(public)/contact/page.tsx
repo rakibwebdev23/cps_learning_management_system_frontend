@@ -49,7 +49,6 @@ export default function ContactPage() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* info */}
           <div className="space-y-6">
             <h2 className="text-xl font-extrabold text-slate-900">Get In Touch</h2>
             <p className="text-slate-600 text-sm leading-relaxed font-medium">Our support team typically responds within 24 hours. You can also reach us on social media.</p>
@@ -73,7 +72,6 @@ export default function ContactPage() {
             })}
           </div>
 
-          {/* form */}
           <div className="lg:col-span-2">
             {isSubmitSuccessful ? (
               <div className="flex flex-col items-center justify-center py-16 text-center border border-slate-200 bg-white">

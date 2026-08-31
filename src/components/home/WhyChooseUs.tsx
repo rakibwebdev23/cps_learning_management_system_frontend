@@ -32,13 +32,13 @@ export default function WhyChooseUs() {
     <section className="py-16 bg-white border-b border-slate-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* Section Title */}
+        {/* section title */}
         <div className="mb-12">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Why Choose CPS LMS?</h2>
           <p className="text-sm text-slate-500 mt-1">We provide the best learning experience with our amazing features.</p>
         </div>
 
-        {/* Feature Cards Grid */}
+        {/* feature cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((item, idx) => {
             const Icon = item.icon

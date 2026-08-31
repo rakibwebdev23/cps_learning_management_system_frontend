@@ -18,7 +18,6 @@ interface Props {
 export default function PageHeader({ title, description, breadcrumbs, actions, className }: Props) {
   return (
     <div className={cn("mb-6", className)}>
-      {/* breadcrumbs */}
       {breadcrumbs && breadcrumbs.length > 0 && (
         <nav className="flex items-center gap-1 text-xs text-slate-500 mb-3">
           <Link href="#" className="hover:text-slate-700 flex items-center gap-1">

@@ -46,7 +46,7 @@ export default function AdminUsersPage() {
       await createUser({
         username: newName,
         email: newEmail,
-        // Typically requires password for Strapi users endpoint, skipping proper creation logic for mock safety, or passing a default
+        // typically requires password for strapi users endpoint, skipping proper creation logic for mock safety, or passing a default
         password: "DefaultPassword123!", 
       }).unwrap()
       setCreateOpen(false)
@@ -144,7 +144,6 @@ export default function AdminUsersPage() {
         </div>
       </div>
 
-      {/* create user dialog */}
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>

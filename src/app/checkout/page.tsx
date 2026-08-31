@@ -28,7 +28,7 @@ function CheckoutContent() {
 
   const { data: meData, isLoading: isMeLoading, error: meError } = useGetMeQuery()
 
-  // Redirect to login if not authenticated
+  // redirect to login if not authenticated
   if (meError) {
     if (typeof window !== "undefined") {
       router.push(`/login?callbackUrl=/checkout?courseId=${courseId}`)
@@ -72,7 +72,7 @@ function CheckoutContent() {
 
   const course = courseData.data
   const price = course.price || 49
-  const discounted = price // Add discount logic here if needed
+  const discounted = price // add discount logic here if needed
   const savings = price - discounted
   
   const thumbnail = course.thumbnail_url || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80"
@@ -89,9 +89,7 @@ function CheckoutContent() {
       <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Complete Your Purchase</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-        {/* left: payment */}
         <div className="lg:col-span-3 space-y-6">
-          {/* payment method */}
           <div className="bg-white dark:bg-slate-900 rounded-xl border p-6">
             <h2 className="font-semibold text-slate-900 dark:text-white mb-4">Payment Method</h2>
             <RadioGroup value={method} onValueChange={setMethod} className="space-y-3">
@@ -112,7 +110,6 @@ function CheckoutContent() {
             </RadioGroup>
           </div>
 
-          {/* card details */}
           {method === "card" && (
             <div className="bg-white dark:bg-slate-900 rounded-xl border p-6 space-y-4">
               <h2 className="font-semibold text-slate-900 dark:text-white">Card Details</h2>
@@ -138,12 +135,10 @@ function CheckoutContent() {
           )}
         </div>
 
-        {/* right: order summary */}
         <div className="lg:col-span-2">
           <div className="bg-white dark:bg-slate-900 rounded-xl border p-6 sticky top-6">
             <h2 className="font-semibold text-slate-900 dark:text-white mb-4">Order Summary</h2>
 
-            {/* course */}
             <div className="flex gap-3 mb-5">
               <div className="relative h-16 w-24 rounded-lg overflow-hidden shrink-0 bg-slate-100">
                 <Image src={getValidImageUrl(thumbnail)} alt={title} fill className="object-cover" sizes="96px" />

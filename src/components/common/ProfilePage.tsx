@@ -36,7 +36,7 @@ export default function ProfilePage({ user: initialUser }: { user?: User }) {
   const { data: meData, isLoading } = useGetMeQuery()
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation()
 
-  // Use API data or fallback to initialUser for UI if API is still loading (or just show loader)
+  // use api data or fallback to initialuser for ui if api is still loading (or just show loader)
   const user = meData || initialUser
 
   const [saved, setSaved] = useState(false)
@@ -70,7 +70,7 @@ export default function ProfilePage({ user: initialUser }: { user?: User }) {
     try {
       await updateProfile({
         username: data.name,
-        // @ts-ignore - Assuming these fields exist in backend
+        // @ts-ignore - assuming these fields exist in backend
         phone: data.phone,
         bio: data.bio
       }).unwrap()
@@ -106,7 +106,6 @@ export default function ProfilePage({ user: initialUser }: { user?: User }) {
 
         <TabsContent value="profile">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* avatar */}
             <div className="lg:col-span-1">
               <div className="rounded-xl border bg-white p-6 text-center shadow-sm">
                 <div className="relative inline-block mb-4">
@@ -123,7 +122,6 @@ export default function ProfilePage({ user: initialUser }: { user?: User }) {
               </div>
             </div>
 
-            {/* form */}
             <div className="lg:col-span-3">
               <form onSubmit={handleSubmit(onSave)} className="rounded-xl border bg-white p-6 space-y-4 shadow-sm">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -71,7 +71,7 @@ export default function EditLessonPage({ params }: { params: Promise<{ lessonId:
         </div>
         <div className="space-y-1.5">
           <Label>Description</Label>
-          <Input {...register("description")} />
+          <Textarea rows={3} placeholder="Brief lesson overview..." {...register("description")} />
           {errors.description && <p className="text-xs text-red-500">{errors.description.message}</p>}
         </div>
         <div className="space-y-1.5">

@@ -16,8 +16,8 @@ export default function StudentQuizzesPage() {
 
   const enrolledCourseIds = enrollments.map((e: any) => e.course?.documentId || e.course?.id)
   
-  // Optional: only show quizzes that belong to enrolled courses
-  // const availableQuizzes = quizzes.filter((q: any) => enrolledCourseIds.includes(q.course?.documentId || q.course?.id))
+  // optional: only show quizzes that belong to enrolled courses
+  // const availablequizzes = quizzes.filter((q: any) => enrolledcourseids.includes(q.course?.documentid || q.course?.id))
   const availableQuizzes = quizzes
 
   const isLoading = isLoadingEnrollments || isLoadingQuizzes

@@ -37,13 +37,11 @@ const upcomingDeadlines = [
 export default function StudentDashboard() {
   return (
     <div className="space-y-6 pb-12">
-      {/* Header Banner */}
       <div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Dashboard</h1>
         <p className="text-sm text-slate-500 mt-1">Welcome back, David! Keep learning and achieve your goals.</p>
       </div>
 
-      {/* Row 1 Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
         <StatCard title="Enrolled Courses" value="8" icon={BookOpen} iconColor="text-emerald-600" iconBg="bg-emerald-50" />
         <StatCard title="In Progress" value="3" icon={Clock} iconColor="text-[#0075FD]" iconBg="bg-blue-50" />
@@ -51,16 +49,12 @@ export default function StudentDashboard() {
         <StatCard title="Quiz Average" value="87%" icon={Trophy} iconColor="text-[#0075FD]" iconBg="bg-blue-50" />
       </div>
 
-      {/* Main Grid Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         
-        {/* Left Column (2 Cols) */}
         <div className="lg:col-span-2 space-y-6">
           
-          {/* Continue Learning & Recent Quiz Results Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
             
-            {/* Custom Continue Learning Card */}
             <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                 <h3 className="text-sm font-bold text-slate-900">Continue Learning</h3>
@@ -82,7 +76,6 @@ export default function StudentDashboard() {
               </div>
             </div>
 
-            {/* Custom Recent Quiz Results Card */}
             <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                 <h3 className="text-sm font-bold text-slate-900">Recent Quiz Results</h3>
@@ -108,16 +101,13 @@ export default function StudentDashboard() {
 
           </div>
 
-          {/* Charts Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
             <LearningProgressChart />
             <CourseProgressDonut />
           </div>
 
-          {/* My Courses & Recent Activity Row */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
             
-            {/* My Courses List */}
             <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                 <h3 className="text-sm font-bold text-slate-900">My Courses</h3>
@@ -139,7 +129,6 @@ export default function StudentDashboard() {
               </div>
             </div>
 
-            {/* Recent Activity */}
             <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                 <h3 className="text-sm font-bold text-slate-900">Recent Activity</h3>
@@ -167,13 +156,10 @@ export default function StudentDashboard() {
 
         </div>
 
-        {/* Right Column (1 Col Sidebar) */}
         <div className="space-y-6">
           
-          {/* Calendar Widget */}
           <CalendarWidget />
 
-          {/* Daily Learning Goal & Streak */}
           <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
@@ -193,7 +179,6 @@ export default function StudentDashboard() {
             </div>
           </div>
 
-          {/* Upcoming Deadlines Widget */}
           <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="text-sm font-bold text-slate-900">Upcoming Deadlines</h3>
@@ -212,7 +197,6 @@ export default function StudentDashboard() {
             </div>
           </div>
 
-          {/* Quick Notice Card */}
           <div className="rounded-2xl border border-blue-200/80 bg-blue-50/50 p-5 shadow-sm space-y-3">
             <div className="flex items-center gap-2 text-xs font-bold text-[#0075FD]">
               <Target className="h-4 w-4" />

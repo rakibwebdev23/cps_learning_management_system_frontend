@@ -8,7 +8,7 @@ export default function CalendarWidget() {
 
   const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
   const daysInMonth = Array.from({ length: 31 }, (_, i) => i + 1)
-  const startOffset = 3 // May 2024 starts on Wednesday
+  const startOffset = 3 // may 2024 starts on wednesday
 
   return (
     <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm hover:shadow-md transition-all">
@@ -34,7 +34,7 @@ export default function CalendarWidget() {
       </div>
 
       <div className="grid grid-cols-7 gap-1 text-center text-xs">
-        {/* Empty slots for offset */}
+        {/* empty slots for offset */}
         {Array.from({ length: startOffset }).map((_, i) => (
           <div key={`empty-${i}`} className="h-8 w-8" />
         ))}

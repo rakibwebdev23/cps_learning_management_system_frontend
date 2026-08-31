@@ -21,8 +21,8 @@ export default function LessonPlayerPage({ params }: { params: Promise<{ lessonI
   const { data: lessonsData, isLoading: isLessonsLoading } = useGetLessonsQuery({ courseId: courseId }, { skip: !courseId })
   const allLessons = lessonsData?.data || []
 
-  // Assuming we don't have a specific API yet to update just the progress of one lesson, 
-  // we would normally update enrollment here if we had `markLessonComplete` mutation.
+  // assuming we don't have a specific api yet to update just the progress of one lesson, 
+  // we would normally update enrollment here if we had `marklessoncomplete` mutation.
 
   if (isLessonLoading) {
     return <div className="flex h-[calc(100vh-8rem)] items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-[#0075FD]" /></div>
@@ -61,7 +61,6 @@ export default function LessonPlayerPage({ params }: { params: Promise<{ lessonI
           </div>
           <p className="text-slate-600 leading-relaxed">{lesson.content}</p>
 
-          {/* nav */}
           <div className="flex items-center justify-between mt-8 pt-5 border-t">
             <Button variant="outline" disabled={!prev} asChild={!!prev}>
               {prev ? <Link href={`/dashboard/student/lessons/${prev.documentId || prev.id}`} className="gap-2"><ChevronLeft className="h-4 w-4" />Previous</Link> : <span className="gap-2"><ChevronLeft className="h-4 w-4" />Previous</span>}
@@ -80,7 +79,6 @@ export default function LessonPlayerPage({ params }: { params: Promise<{ lessonI
         </div>
       </div>
 
-      {/* curriculum sidebar */}
       {sidebarOpen && (
         <div className="hidden lg:flex flex-col w-72 border-l bg-white overflow-y-auto">
           <div className="p-4 border-b font-semibold text-sm text-slate-900">Course Curriculum</div>

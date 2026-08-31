@@ -13,7 +13,6 @@ export default function CourseCard({ course }: Props) {
 
   return (
     <div className="group border border-slate-200 bg-white overflow-hidden">
-      {/* thumbnail */}
       <div className="relative h-44 overflow-hidden">
         <Image
           src={getValidImageUrl(thumbnailSrc)}
@@ -24,21 +23,18 @@ export default function CourseCard({ course }: Props) {
         />
       </div>
 
-      {/* content */}
       <div className="p-4">
         <h3 className="font-bold text-slate-900 text-sm leading-snug line-clamp-2 mb-2 group-hover:text-[#0075FD] transition-colors">
           {course.title}
         </h3>
         <p className="text-xs text-slate-600 line-clamp-2 mb-3">{course.description || course.shortDescription}</p>
 
-        {/* instructor */}
         <div className="mb-3">
           <span className="text-xs text-slate-900 font-semibold">
             {course.instructorName || (course as any).instructor?.username || (course as any).instructor?.name || "CPS Instructor"}
           </span>
         </div>
 
-        {/* price + CTA */}
         <div className="flex items-center justify-between pt-3 border-t border-slate-100">
           <div className="flex items-baseline gap-2">
             <span className="font-extrabold text-slate-900 text-base">

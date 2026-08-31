@@ -22,7 +22,7 @@ export default function CoursesPage() {
     search: debouncedSearch,
   })
 
-  // Map API data
+  // map api data
   const allCourses = useMemo(() => {
     if (apiData?.data) {
       return apiData.data.map((c) => ({
@@ -73,7 +73,6 @@ export default function CoursesPage() {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* page header */}
       <div className="bg-white border-b border-slate-100 text-slate-900 pt-20 pb-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-extrabold text-black tracking-tight mb-2">Browse All Courses</h1>
@@ -82,7 +81,6 @@ export default function CoursesPage() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-        {/* filters */}
         <div className="flex flex-col lg:flex-row gap-4 mb-8 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
@@ -115,7 +113,6 @@ export default function CoursesPage() {
           )}
         </div>
 
-        {/* results count */}
         <div className="flex items-center justify-between mb-6">
           <p className="text-sm text-slate-500">
             Showing <span className="font-semibold text-slate-900 dark:text-white">{filtered.length}</span> courses

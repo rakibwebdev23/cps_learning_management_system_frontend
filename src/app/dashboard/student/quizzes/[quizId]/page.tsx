@@ -39,7 +39,7 @@ export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: s
   }
 
   const handleSubmit = async () => {
-    // Calculate score (assuming options have isCorrect or similar, or just randomly for now if not available)
+    // calculate score (assuming options have iscorrect or similar, or just randomly for now if not available)
     let correctCount = 0
     questions.forEach((q: any) => {
       const selected = answers[q.id]
@@ -73,7 +73,6 @@ export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: s
 
   return (
     <div className="w-full">
-      {/* header */}
       <div className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-xl font-bold text-slate-900">{quiz.title}</h1>
@@ -85,10 +84,8 @@ export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: s
         </div>
       </div>
 
-      {/* progress */}
       <Progress value={progress} className="h-2 mb-6" />
 
-      {/* question card */}
       <div className="rounded-xl border bg-white p-6 mb-6 shadow-sm">
         <p className="text-slate-900 font-semibold text-base mb-6 leading-relaxed">
           {question.text || question.questionText || "Question text missing"}
@@ -107,7 +104,6 @@ export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: s
         </RadioGroup>
       </div>
 
-      {/* navigation */}
       <div className="flex items-center justify-between">
         <Button variant="outline" onClick={() => setCurrent((c) => c - 1)} disabled={current === 0} className="gap-2">
           <ChevronLeft className="h-4 w-4" /> Previous
@@ -124,7 +120,6 @@ export default function QuizPlayerPage({ params }: { params: Promise<{ quizId: s
         )}
       </div>
 
-      {/* confirm dialog */}
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <DialogContent className="max-w-sm">
           <DialogHeader>

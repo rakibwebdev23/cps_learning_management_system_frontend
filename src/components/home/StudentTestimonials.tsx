@@ -29,13 +29,13 @@ export default function StudentTestimonials() {
     <section className="py-16 bg-white border-t border-slate-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* section header */}
         <div className="mb-12">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">What Our Students Say</h2>
           <p className="text-sm text-slate-500 mt-1">Join thousands of satisfied learners.</p>
         </div>
 
-        {/* Testimonials Grid */}
+        {/* testimonials grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((item, idx) => (
             <div key={idx} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-4">

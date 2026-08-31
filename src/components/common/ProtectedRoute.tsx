@@ -21,7 +21,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
   useEffect(() => {
     if (!isHydrated) return
 
-    // Check auth status
+    // check auth status
     const tokenInCookie = typeof document !== "undefined"
       ? document.cookie.split("; ").find((r) => r.startsWith("accessToken=") || r.startsWith("jwt="))
       : null
@@ -33,7 +33,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
       return
     }
 
-    // Role check if allowedRoles provided
+    // role check if allowedroles provided
     if (allowedRoles && allowedRoles.length > 0 && user) {
       const userRole = String(user.role || user.user_role || "").toUpperCase()
       const normalizedAllowed = allowedRoles.map((r) => r.toUpperCase())

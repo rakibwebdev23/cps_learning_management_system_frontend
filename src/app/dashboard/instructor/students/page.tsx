@@ -21,7 +21,7 @@ export default function InstructorStudentsPage() {
   const { data: enrollmentsData, isLoading } = useGetEnrollmentsQuery()
   const apiEnrollments = enrollmentsData?.data || []
 
-  // Ideally, backend should filter by instructor, but for now we'll do it if there's no instructorId filter in API
+  // ideally, backend should filter by instructor, but for now we'll do it if there's no instructorid filter in api
   const myEnrollments = apiEnrollments.map((e: any) => ({
     id: String(e.documentId || e.id),
     studentId: e.student?.documentId || "1",

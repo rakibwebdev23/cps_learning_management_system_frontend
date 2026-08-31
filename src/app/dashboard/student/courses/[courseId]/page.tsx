@@ -17,9 +17,9 @@ export default function StudentCourseDetailPage({ params }: { params: Promise<{ 
   const { data: lessonsData, isLoading: isLessonsLoading } = useGetLessonsQuery({ courseId })
   const lessons = lessonsData?.data || []
 
-  // Assuming studentId is managed by the backend or we can get it from auth context. For now, fetch all and filter.
+  // assuming studentid is managed by the backend or we can get it from auth context. for now, fetch all and filter.
   const { data: enrollmentsData, isLoading: isEnrollmentsLoading } = useGetEnrollmentsQuery({ courseId })
-  const enrollment = enrollmentsData?.data?.[0] // Simply picking the first one assuming the backend filters it for the current user
+  const enrollment = enrollmentsData?.data?.[0] // simply picking the first one assuming the backend filters it for the current user
 
   const completedCount = enrollment?.completedLessons ?? 0
   const totalLessons = course?.lessonCount || lessons.length || 1
@@ -36,7 +36,6 @@ export default function StudentCourseDetailPage({ params }: { params: Promise<{ 
         description={`by ${course.instructorName || "Instructor"} · ${totalLessons} lessons`}
       />
 
-      {/* progress bar */}
       <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-sm font-bold text-slate-900">Overall Progress</span>
@@ -46,7 +45,6 @@ export default function StudentCourseDetailPage({ params }: { params: Promise<{ 
         <p className="text-xs text-slate-500">{completedCount} of {totalLessons} lessons completed</p>
       </div>
 
-      {/* curriculum */}
       <div className="rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-sm">
         <div className="px-5 py-4 border-b border-slate-100 bg-slate-50">
           <h2 className="font-bold text-slate-900 text-sm">Course Curriculum</h2>

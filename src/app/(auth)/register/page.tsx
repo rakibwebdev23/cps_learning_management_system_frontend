@@ -88,16 +88,13 @@ export default function RegisterPage() {
 
   return (
     <div className="w-full max-w-5xl h-auto lg:h-[660px] bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-slate-100">
-      {/* Left Side: Form Area */}
       <div className="w-full lg:w-1/2 p-8 lg:py-8 lg:px-12 flex flex-col justify-between bg-white h-full min-h-[520px] lg:min-h-0">
-        {/* Brand Header */}
         <div className="relative">
           <Link href="/" className="inline-flex items-center cursor-pointer">
             <Image src="/logo.png" alt="CPS LMS" width={150} height={45} className="h-10 w-auto object-contain" priority />
           </Link>
         </div>
 
-        {/* Form Content */}
         <div className="my-auto py-2 max-w-md w-full mx-auto">
           <h1 className="text-3xl font-bold text-slate-900 mb-1">
             Create Account
@@ -113,7 +110,6 @@ export default function RegisterPage() {
           )}
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Field 1: Username */}
             <div className="space-y-1">
               <label className="text-xs font-semibold text-slate-400 block cursor-pointer">
                 Username
@@ -131,7 +127,6 @@ export default function RegisterPage() {
               {errors.username && <p className="text-xs text-red-500 pl-4">{errors.username.message}</p>}
             </div>
 
-            {/* Field 2: Email Input */}
             <div className="space-y-1">
               <label className="text-xs font-semibold text-slate-400 block cursor-pointer">
                 Email Address
@@ -152,7 +147,6 @@ export default function RegisterPage() {
               {errors.email && <p className="text-xs text-red-500 pl-4">{errors.email.message}</p>}
             </div>
 
-            {/* Field 3: Password Input */}
             <div className="space-y-1">
               <label className="text-xs font-semibold text-slate-400 block cursor-pointer">
                 Password
@@ -181,7 +175,6 @@ export default function RegisterPage() {
               {errors.password && <p className="text-xs text-red-500 pl-4">{errors.password.message}</p>}
             </div>
 
-            {/* Field 4: User Role */}
             <div className="space-y-1">
               <label className="text-xs font-semibold text-slate-400 block cursor-pointer">
                 Select User Role
@@ -209,7 +202,6 @@ export default function RegisterPage() {
               {errors.user_role && <p className="text-xs text-red-500 pl-4">{errors.user_role.message}</p>}
             </div>
 
-            {/* Submit Button */}
             <div className="flex justify-center pt-2">
               <button
                 type="submit"
@@ -228,7 +220,6 @@ export default function RegisterPage() {
             </div>
           </form>
 
-          {/* Login Prompt */}
           <p className="text-center text-xs text-slate-400 mt-5">
             Already have an account?{" "}
             <Link
@@ -243,7 +234,6 @@ export default function RegisterPage() {
         <div />
       </div>
 
-      {/* Right Side: Visual Hero Card */}
       <div className="hidden lg:block w-1/2 p-3 h-full group">
         <div className="relative w-full h-full rounded-2xl overflow-hidden bg-gradient-to-b from-slate-900 to-black flex flex-col justify-end p-8 lg:p-12 text-white">
           <Image

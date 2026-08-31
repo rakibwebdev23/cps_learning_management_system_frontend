@@ -18,10 +18,10 @@ export default function DashboardLayout({ children, role }: { children: React.Re
   return (
     <ProtectedRoute allowedRoles={[normalizedRole]}>
       <div className="min-h-screen bg-[#F8FAFC]">
-        {/* Fixed Navy Sidebar */}
+        {/* fixed navy sidebar */}
         <DashboardSidebar role={normalizedRole} />
 
-        {/* Main Content AreaOffset by Sidebar width (64 = 16rem = 256px) */}
+        {/* main content areaoffset by sidebar width (64 = 16rem = 256px) */}
         <div className="pl-64 flex flex-col min-h-screen">
           <DashboardHeader role={normalizedRole} />
           <main className="flex-1 p-6 md:p-8 animate-fade-in">

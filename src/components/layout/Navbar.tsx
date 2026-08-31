@@ -53,12 +53,10 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav className="bg-white/95 backdrop-blur-md rounded-2xl py-3 px-4 md:py-4 md:px-6 shadow-xl border border-slate-100 relative">
           <div className="flex items-center justify-between">
-            {/* Logo */}
             <Link href="/" className="flex items-center gap-2 cursor-pointer">
               <Image src="/logo.png" alt="CPS LMS" width={140} height={40} className="h-9 w-auto object-contain" priority />
             </Link>
 
-            {/* Desktop Nav Links */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href
@@ -79,7 +77,6 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-4">
               <Link
                 href="/login"
@@ -92,10 +89,10 @@ export default function Navbar() {
                 href="/register"
                 className="group relative border-2 border-[#0075FD] text-white bg-transparent rounded-full px-6 py-2 text-sm font-bold transition-all duration-300 cursor-pointer overflow-hidden z-10 shadow-md shadow-blue-500/10 hover:shadow-blue-500/25 inline-flex items-center justify-center"
               >
-                {/* Default background color */}
+                {/* default background color */}
                 <span className="absolute inset-0 bg-[#0075FD] -z-20" />
 
-                {/* Smooth sliding background fill */}
+                {/* smooth sliding background fill */}
                 <span className="absolute inset-0 bg-slate-900 translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] -z-10" />
 
                 <span className="relative z-20 text-white transition-colors duration-300">
@@ -104,7 +101,6 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Mobile Menu Toggle */}
             <Button
               variant="ghost"
               size="icon"
@@ -119,7 +115,6 @@ export default function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile Menu */}
           <div
             className={cn(
               "md:hidden overflow-hidden transition-all duration-300",

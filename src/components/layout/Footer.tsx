@@ -25,7 +25,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           
-          {/* Column 1: ABOUT US */}
+          {/* column 1: about us */}
           <div className="space-y-4">
             <div>
               <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">ABOUT US</h3>
@@ -41,7 +41,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: OUR COURSE */}
+          {/* column 2: our course */}
           <div className="space-y-4">
             <div>
               <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">OUR COURSE</h3>
@@ -60,7 +60,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: QUICK LINKS */}
           <div className="space-y-4">
             <div>
               <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">QUICK LINKS</h3>
@@ -91,7 +90,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: CONTACT US */}
           <div className="space-y-4">
             <div>
               <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">CONTACT US</h3>
@@ -125,7 +123,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Copyright Bar */}
       <div className="bg-slate-50 py-4 border-t border-slate-200 text-center text-slate-600 text-xs">
         <p>
           Copyright 2026 © <span className="text-[#0075FD] font-semibold">{SITE_NAME}</span>, Designed by: <span className="text-[#0075FD] font-semibold">CPS LMS Team</span>

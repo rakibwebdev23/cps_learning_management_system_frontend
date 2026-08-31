@@ -22,7 +22,7 @@ export default function QuizQuestionsPage({ params }: { params: Promise<{ quizId
 
   useEffect(() => {
     if (quiz && quiz.questions) {
-      // Map API data to local state format, ensuring each option has an ID for radio groups to work
+      // map api data to local state format, ensuring each option has an id for radio groups to work
       const mappedQuestions = quiz.questions.map((q: any) => ({
         id: q.id || `q-${Math.random()}`,
         questionText: q.questionText || q.text || "",
@@ -77,8 +77,8 @@ export default function QuizQuestionsPage({ params }: { params: Promise<{ quizId
   const handleSave = async () => {
     if (!quiz) return;
     try {
-      // Clean up temp IDs if needed by Strapi component architecture, or let Strapi handle it.
-      // Usually, if we send `id` back for new components that are strings, it might crash.
+      // clean up temp ids if needed by strapi component architecture, or let strapi handle it.
+      // usually, if we send `id` back for new components that are strings, it might crash.
       const cleanedQuestions = questions.map((q) => {
         const qId = typeof q.id === "string" && q.id.startsWith("new-") ? undefined : q.id
         return {

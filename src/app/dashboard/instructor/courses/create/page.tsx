@@ -79,7 +79,6 @@ export default function CreateCoursePage() {
         </div>
       )}
 
-      {/* step indicator */}
       <div className="flex items-center gap-0 mb-8">
         {steps.map((s, i) => (
           <div key={s} className="flex items-center gap-0">
@@ -97,7 +96,6 @@ export default function CreateCoursePage() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* step 1 */}
         {step === 0 && (
           <div className="rounded-xl border border-slate-200 bg-white p-6 space-y-4 w-full shadow-sm">
             <h2 className="font-semibold text-slate-900">Course Information</h2>
@@ -142,7 +140,6 @@ export default function CreateCoursePage() {
           </div>
         )}
 
-        {/* step 2 */}
         {step === 1 && (
           <div className="rounded-xl border border-slate-200 bg-white p-6 w-full shadow-sm">
             <div className="flex items-center justify-between mb-4">
@@ -174,7 +171,6 @@ export default function CreateCoursePage() {
           </div>
         )}
 
-        {/* step 3 */}
         {step === 2 && (
           <div className="rounded-xl border border-slate-200 bg-white p-6 w-full shadow-sm">
             <h2 className="font-semibold text-slate-900 mb-4">Quiz Setup (Optional)</h2>
@@ -201,7 +197,6 @@ export default function CreateCoursePage() {
           </div>
         )}
 
-        {/* navigation */}
         <div className="flex items-center justify-between mt-6">
           <Button type="button" variant="outline" disabled={step === 0} onClick={() => setStep((s) => s - 1)} className="gap-2 cursor-pointer">
             <ArrowLeft className="h-4 w-4" />Previous

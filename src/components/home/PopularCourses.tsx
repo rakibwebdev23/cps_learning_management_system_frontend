@@ -14,7 +14,7 @@ export default function PopularCourses() {
     <section className="py-16 bg-white border-y border-slate-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* section header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Popular Courses</h2>
@@ -35,7 +35,6 @@ export default function PopularCourses() {
           </div>
         ) : (
           <>
-            {/* Grid - 4 Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {popularCourses.map((course: any) => {
                 const isValidUrl = (url?: string) => typeof url === "string" && (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("/"));

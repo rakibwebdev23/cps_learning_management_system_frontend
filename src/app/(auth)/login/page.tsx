@@ -88,16 +88,13 @@ function LoginContent() {
 
   return (
     <div className="w-full max-w-5xl h-auto lg:h-[660px] bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col lg:flex-row border border-slate-100">
-      {/* Left Side: Form Area */}
       <div className="w-full lg:w-1/2 p-8 lg:py-10 lg:px-12 flex flex-col justify-between bg-white h-full min-h-[520px] lg:min-h-0">
-        {/* Brand Header */}
         <div className="relative">
           <Link href="/" className="inline-flex items-center cursor-pointer">
             <Image src="/logo.png" alt="CPS LMS" width={150} height={45} className="h-10 w-auto object-contain" priority />
           </Link>
         </div>
 
-        {/* Form Content */}
         <div className="my-auto py-4 max-w-md w-full mx-auto">
           <h1 className="text-3xl font-bold text-slate-900 mb-1">
             Welcome Back
@@ -113,7 +110,6 @@ function LoginContent() {
           )}
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            {/* Email Input */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-slate-400 block cursor-pointer">
                 Email Address
@@ -134,7 +130,6 @@ function LoginContent() {
               {errors.email && <p className="text-xs text-red-500 pl-4">{errors.email.message}</p>}
             </div>
 
-            {/* Password Input */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-slate-400 block cursor-pointer">
                 Password
@@ -163,7 +158,6 @@ function LoginContent() {
               {errors.password && <p className="text-xs text-red-500 pl-4">{errors.password.message}</p>}
             </div>
 
-            {/* Remember Me & Forgot Password */}
             <div className="flex items-center justify-between text-xs pt-1">
               <label className="flex items-center gap-2 text-slate-600 cursor-pointer select-none">
                 <input
@@ -182,7 +176,6 @@ function LoginContent() {
               </Link>
             </div>
 
-            {/* Submit Button */}
             <div className="flex justify-center pt-2">
               <button
                 type="submit"
@@ -201,7 +194,6 @@ function LoginContent() {
             </div>
           </form>
 
-          {/* Registration Prompt */}
           <p className="text-center text-xs text-slate-400 mt-6">
             Don't have an account?{" "}
             <Link
@@ -216,7 +208,6 @@ function LoginContent() {
         <div />
       </div>
 
-      {/* Right Side: Visual Hero Card */}
       <div className="hidden lg:block w-1/2 p-3 h-full group">
         <div className="relative w-full h-full rounded-2xl overflow-hidden bg-gradient-to-b from-slate-900 to-black flex flex-col justify-end p-8 lg:p-12 text-white">
           <Image

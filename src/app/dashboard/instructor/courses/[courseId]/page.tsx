@@ -44,7 +44,7 @@ export default function InstructorCourseDetailPage({ params }: { params: Promise
     return lessonsApi.map(l => ({
       id: String(l.documentId || l.id),
       title: l.title,
-      type: "video", // Default
+      type: "video", // default
       durationMinutes: l.durationMinutes || 10,
     }))
   }, [lessonsApi])
@@ -75,14 +75,12 @@ export default function InstructorCourseDetailPage({ params }: { params: Promise
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-5">
-          {/* thumbnail */}
           <div className="rounded-xl border overflow-hidden">
             <div className="relative h-56">
               <Image src={getValidImageUrl(course.thumbnail)} alt={course.title} fill className="object-cover" sizes="800px" />
             </div>
           </div>
 
-          {/* lessons */}
           <div className="rounded-xl border bg-white overflow-hidden shadow-sm">
             <div className="flex items-center justify-between px-5 py-4 border-b bg-slate-50">
               <h3 className="font-semibold text-slate-900">Lessons ({lessons.length})</h3>
@@ -115,7 +113,6 @@ export default function InstructorCourseDetailPage({ params }: { params: Promise
           </div>
         </div>
 
-        {/* sidebar */}
         <div className="space-y-5">
           <div className="rounded-xl border bg-white p-5 shadow-sm">
             <h3 className="font-semibold text-slate-900 mb-4">Course Stats</h3>
@@ -129,7 +126,6 @@ export default function InstructorCourseDetailPage({ params }: { params: Promise
             </div>
           </div>
 
-          {/* recent enrollments */}
           <div className="rounded-xl border bg-white p-5 shadow-sm">
             <h3 className="font-semibold text-slate-900 mb-4">Recent Students ({enrollments.length})</h3>
             <div className="space-y-3">

@@ -33,9 +33,9 @@ export default function AdminDashboard() {
   const recentUsers = [...users].reverse().slice(0, 5)
   const recentEnrollments = [...enrollments].reverse().slice(0, 5)
 
-  // Calculate stats
+  // calculate stats
   const totalRevenue = enrollments.reduce((acc: number, curr: any) => {
-    // Basic calculation if we don't have actual transaction amounts, assume course price
+    // basic calculation if we don't have actual transaction amounts, assume course price
     return acc + (curr.course?.price || 0)
   }, 0)
 
@@ -43,7 +43,6 @@ export default function AdminDashboard() {
     <div>
       <PageHeader title="Admin Overview" description="Platform key metrics and system health." />
 
-      {/* stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatCard title="Total Users" value={users.length.toLocaleString()} icon={Users} iconColor="text-[#0075FD]" iconBg="bg-blue-50" change="+8% this month" changeType="up" />
         <StatCard title="Total Courses" value={courses.length.toLocaleString()} icon={BookOpen} iconColor="text-[#0075FD]" iconBg="bg-blue-50" change="+4 new courses" changeType="up" />
@@ -51,15 +50,12 @@ export default function AdminDashboard() {
         <StatCard title="Total Revenue" value={formatPrice(totalRevenue)} icon={DollarSign} iconColor="text-[#0075FD]" iconBg="bg-blue-50" change="+12% revenue" changeType="up" />
       </div>
 
-      {/* charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         <div className="lg:col-span-2"><EnrollmentChart /></div>
         <UserDistributionChart />
       </div>
 
-      {/* tables */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* recent users */}
         <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-md shadow-slate-200/50">
           <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white">
             <h2 className="font-bold text-slate-900 text-base">Recent Users</h2>
@@ -87,7 +83,6 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* recent enrollments */}
         <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-md shadow-slate-200/50">
           <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white">
             <h2 className="font-bold text-slate-900 text-base">Recent Enrollments</h2>

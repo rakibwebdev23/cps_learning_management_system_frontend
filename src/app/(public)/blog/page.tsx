@@ -44,7 +44,6 @@ export default function BlogPage() {
           <div className="text-center py-20 text-slate-500">No blog posts found.</div>
         ) : (
           <>
-            {/* featured post */}
             {posts[0] && (
               <Link href={`/blog/${posts[0].id}`} className="group block mb-12 cursor-pointer">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow bg-white">
@@ -65,7 +64,6 @@ export default function BlogPage() {
               </Link>
             )}
 
-            {/* grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.slice(1).map((post) => (
                 <Link key={post.id} href={`/blog/${post.id}`} className="group block cursor-pointer">
